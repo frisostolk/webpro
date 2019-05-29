@@ -19,11 +19,12 @@ function p_print($array){
     <link rel="stylesheet" href="../css/styles.css">
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../scripts/validate_form.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">WP19 Assignment 3</a>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Memory</a>
         <ul class="navbar-nav mr-auto">
             <?php $active = $navigation['active']; ?>
             <?php foreach($navigation['items'] as $title => $url){

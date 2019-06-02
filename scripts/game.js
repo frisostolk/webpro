@@ -22,10 +22,8 @@ let game = document.getElementById('game');
 // Create a section with a class of grid
 let grid = document.createElement('section');
 grid.setAttribute('class', 'grid');
-​
 // Append the grid section to the game div
 game.appendChild(grid);
-
 cardsArray.forEach(item => {
     // Create a div
     const card = document.createElement('div');
@@ -40,6 +38,6 @@ cardsArray.forEach(item => {
     card.style.backgroundImage = `url(${item.img})`;
 
     // Append the div to the grid section
-    grid.appendChild(card)
+    grid.appendChild(card);
 });
 

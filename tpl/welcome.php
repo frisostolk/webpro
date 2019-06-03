@@ -2,7 +2,7 @@
     echo"<h2>Welcome Player!</h2>";
     include __DIR__ . 'head.php';
     ?>
-<form action="/webpro/game.php" method="POST" id="welcome_form">
+<form action="game.php" method="POST" id="welcome_form">
     <div class="form-group row">
         <label for="email" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">

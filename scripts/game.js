@@ -79,6 +79,7 @@ $(function() {
         // Append the div to the grid section
         grid.appendChild(card);
     });
+    let previousTarget = null
     grid.addEventListener('click', function(event) {
         // The event target is our clicked item
         let clicked = event.target
@@ -104,9 +105,12 @@ $(function() {
                 if (firstGuess === secondGuess) {
                     // run the match function
                     match()
+                    resetGuesses();
+                }else {
+                    resetGuesses();
                 }
-                previousTarget = clicked;
             }
+            previousTarget = clicked;
         }
     })
     const match = () => {
@@ -115,7 +119,7 @@ $(function() {
             card.classList.add('match')
         })
     }
-    let previousTarget = null;
+
     const resetGuesses = () => {
         firstGuess = ''
         secondGuess = ''
@@ -126,4 +130,12 @@ $(function() {
             card.classList.remove('selected')
         })
     }
+    let delay = 1200;
+    if (firstGuess === secondGuess) {
+        setTimeout(match, delay)
+        setTimeout(resetGuesses, delay)
+    } else {
+        setTimeout(resetGuesses, delay)
+    }
+
 });

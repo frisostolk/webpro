@@ -1,4 +1,3 @@
-
 $(function() {
     let firstGuess = ''
     let secondGuess = ''
@@ -66,18 +65,22 @@ $(function() {
     gameGrid.forEach(item => {
         // Create a div
         const card = document.createElement('div');
-
-        // Apply a card class to that div
         card.classList.add('card');
+        card.dataset.name = item.name
 
-        // Set the data-name attribute of the div to the cardsArray name
-        card.dataset.name = item.name;
+        // Create front of card
+        const front = document.createElement('div')
+        front.classList.add('front')
 
-        // Apply the background image of the div to the cardsArray image
-        card.style.backgroundImage = `url(${item.img})`;
+        // Create back of card, which contains
+        const back = document.createElement('div')
+        back.classList.add('back')
+        back.style.backgroundImage = `url(${item.img})`
 
-        // Append the div to the grid section
-        grid.appendChild(card);
+        // Append card to grid, and front and back to each card
+        grid.appendChild(card)
+        card.appendChild(front)
+        card.appendChild(back)
     });
     let previousTarget = null
     grid.addEventListener('click', function(event) {
@@ -92,12 +95,14 @@ $(function() {
             count++
             if (count === 1) {
                 // Assign first guess
-                firstGuess = clicked.dataset.name
-                clicked.classList.add('selected')
+                firstGuess = clicked.parentNode.dataset.name
+                console.log(firstGuess)
+                clicked.parentNode.classList.add('selected')
             } else {
                 // Assign second guess
-                secondGuess = clicked.dataset.name
-                clicked.classList.add('selected')
+                secondGuess = clicked.parentNode.dataset.name
+                console.log(secondGuess)
+                clicked.parentNode.classList.add('selected')
             }
             // If both guesses are not empty...
             if (firstGuess !== '' && secondGuess !== '') {

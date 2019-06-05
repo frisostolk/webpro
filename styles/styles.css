@@ -53,7 +53,7 @@ body {
 }
 
 .front {
-    background: #fab942 url('../img/question.gif') no-repeat center center / contain;
+    background: #fab942 url('../data/img/zhenja2.jpg') no-repeat center center / contain;
 }
 .back {
     transform: rotateY(180deg);

@@ -49,69 +49,66 @@ $(function() {
             img: 'data/img/captain.png',
         },
     ];
-    const gameGrid = cardsArray
-        .concat(cardsArray)
-        .sort(() => 0.5 - Math.random());
+    var gameGrid = cardsArray.concat(cardsArray).sort(function () {
+        return 0.5 - Math.random();
+    });
 
-    let firstGuess = '';
-    let secondGuess = '';
-    let count = 0;
-    let previousTarget = null;
-    let delay = 1200;
+    var firstGuess = '';
+    var secondGuess = '';
+    var count = 0;
+    var previousTarget = null;
+    var delay = 1200;
 
-    const game = document.getElementById('game');
-    const grid = document.createElement('section');
+    var game = document.getElementById('game');
+    var grid = document.createElement('section');
     grid.setAttribute('class', 'grid');
     game.appendChild(grid);
 
-    gameGrid.forEach(item => {
-        const {name, img} = item;
+    gameGrid.forEach(function (item) {
+        var name = item.name,
+            img = item.img;
 
-        const card = document.createElement('div');
+
+        var card = document.createElement('div');
         card.classList.add('card');
         card.dataset.name = name;
 
-        const front = document.createElement('div');
+        var front = document.createElement('div');
         front.classList.add('front');
 
-        const back = document.createElement('div');
+        var back = document.createElement('div');
         back.classList.add('back');
-        back.style.backgroundImage = `url(${img})`;
+        back.style.backgroundImage = 'url(' + img + ')';
 
         grid.appendChild(card);
         card.appendChild(front);
         card.appendChild(back);
     });
 
-    const match = () => {
-        const selected = document.querySelectorAll('.selected');
-        selected.forEach(card => {
+    var match = function match() {
+        var selected = document.querySelectorAll('.selected');
+        selected.forEach(function (card) {
             card.classList.add('match');
         });
     };
 
-    const resetGuesses = () => {
+    var resetGuesses = function resetGuesses() {
         firstGuess = '';
         secondGuess = '';
         count = 0;
         previousTarget = null;
 
         var selected = document.querySelectorAll('.selected');
-        selected.forEach(card => {
+        selected.forEach(function (card) {
             card.classList.remove('selected');
         });
     };
 
-    grid.addEventListener('click', event => {
+    grid.addEventListener('click', function (event) {
 
-        const clicked = event.target;
+        var clicked = event.target;
 
-        if (
-            clicked.nodeName === 'SECTION' ||
-            clicked === previousTarget ||
-            clicked.parentNode.classList.contains('selected') ||
-            clicked.parentNode.classList.contains('match')
-        ) {
+        if (clicked.nodeName === 'SECTION' || clicked === previousTarget || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
             return;
         }
 
@@ -135,6 +132,5 @@ $(function() {
             }
             previousTarget = clicked;
         }
-
     });
 });

@@ -1,82 +1,86 @@
 $(function() {
-    let cardsArray = [
+    let cardsList = [
         {
-            name: 'birdo',
-            img: 'data/img/birdo.png',
+            name: 'bee',
+            img: 'data/img/bee.png',
         },
         {
-            name: 'bob_de_bouwer',
-            img: 'data/img/bob_de_bouwer.png',
+            name: 'cake',
+            img: 'data/img/cake.png',
         },
         {
-            name: 'bowser',
-            img: 'data/img/bowser.png',
+            name: 'cat',
+            img: 'data/img/cat.png',
         },
         {
-            name: 'dry_bones',
-            img: 'data/img/dry_bones.png',
+            name: 'dog',
+            img: 'data/img/dog.png',
         },
         {
-            name: 'yoshi',
-            img: 'data/img/yoshi.png',
+            name: 'sheep',
+            img: 'data/img/sheep.png',
         },
         {
-            name: 'mario',
-            img: 'data/img/mario.png',
+            name: 'snake',
+            img: 'data/img/snake.png',
         },
         {
-            name: 'spiderman',
-            img: 'data/img/spiderman.png',
+            name: 'penguin',
+            img: 'data/img/penguin.png',
         },
         {
-            name: 'koopa_troopa',
-            img: 'data/img/koopa_troopa.png',
+            name: 'pikachu',
+            img: 'data/img/pikachu.png',
         },
         {
-            name: 'luigi',
-            img: 'data/img/luigi.png',
+            name: 'rabbit',
+            img: 'data/img/rabbit.png',
         },
         {
-            name: 'wario',
-            img: 'data/img/wario.png',
+            name: 'rainblob',
+            img: 'data/img/rainblob.png',
         },
         {
-            name: 'iron_man',
-            img: 'data/img/iron_man.png',
+            name: 'turtle',
+            img: 'data/img/turtle.png',
         },
         {
-            name: 'captain_america',
-            img: 'data/img/captain.png',
+            name: 'wumpus',
+            img: 'data/img/wumpus.png',
         },
     ];
-    var gameGrid = cardsArray.concat(cardsArray).sort(function () {
+
+    // Create the game layout, laying out the cards randomly
+    let gameLayout = cardsList.concat(cardsList).sort(function () {
         return 0.5 - Math.random();
     });
 
-    var firstGuess = '';
-    var secondGuess = '';
-    var count = 0;
-    var previousTarget = null;
-    var delay = 1200;
+    // Variable assignment for further use
+    let firstChoice = '';
+    let secondChoice = '';
+    let guesses = 0;
+    let previousChoice = null;
+    let delay = 1200;
 
-    var game = document.getElementById('game');
-    var grid = document.createElement('section');
+    // Display cards
+    let game = document.getElementById('game');
+    let grid = document.createElement('section');
     grid.setAttribute('class', 'grid');
     game.appendChild(grid);
 
-    gameGrid.forEach(function (item) {
-        var name = item.name,
+    // For each card (item) in layout assigning a name and image
+    gameLayout.forEach(function (item) {
+        let name = item.name,
             img = item.img;
 
-
-        var card = document.createElement('div');
+        let card = document.createElement('div');
         card.classList.add('card');
         card.dataset.name = name;
 
-        var front = document.createElement('div');
+        let front = document.createElement('div');
         front.classList.add('front');
 
-        var back = document.createElement('div');
+        let back = document.createElement('div');
         back.classList.add('back');
         back.style.backgroundImage = 'url(' + img + ')';
 
@@ -85,52 +89,61 @@ $(function() {
         card.appendChild(back);
     });
 
-    var match = function match() {
-        var selected = document.querySelectorAll('.selected');
+    // Function to check whether the two cards selected are the same (match)
+    let match = function match() {
+        let selected = document.querySelectorAll('.selected');
         selected.forEach(function (card) {
             card.classList.add('match');
         });
     };
 
-    var resetGuesses = function resetGuesses() {
-        firstGuess = '';
-        secondGuess = '';
-        count = 0;
-        previousTarget = null;
+    // Function to reset the two choices so the next turn can start
+    let resetChoices = function resetChoices() {
+        firstChoice = '';
+        secondChoice = '';
+        guesses = 0;
+        previousChoice = null;
 
-        var selected = document.querySelectorAll('.selected');
+        let selected = document.querySelectorAll('.selected');
         selected.forEach(function (card) {
             card.classList.remove('selected');
         });
     };
 
+    //
     grid.addEventListener('click', function (event) {
 
-        var clicked = event.target;
+        let clicked = event.target;
 
-        if (clicked.nodeName === 'SECTION' || clicked === previousTarget || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
+        // Making sure that only the images can be clicked and not the grid in between
+        if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
             return;
         }
 
-        if (count < 2) {
-            count++;
-            if (count === 1) {
-                firstGuess = clicked.parentNode.dataset.name;
-                console.log(firstGuess);
+        // statements to check whether it's a match or not
+        if (guesses < 2) {
+            guesses++;
+            // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
+            if (guesses === 1) {
+                firstChoice = clicked.parentNode.dataset.name;
+                console.log(firstChoice);
                 clicked.parentNode.classList.add('selected');
+                // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
             } else {
-                secondGuess = clicked.parentNode.dataset.name;
-                console.log(secondGuess);
+                secondChoice = clicked.parentNode.dataset.name;
+                console.log(secondChoice);
                 clicked.parentNode.classList.add('selected');
             }
 
-            if (firstGuess && secondGuess) {
-                if (firstGuess === secondGuess) {
+            // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
+            // the choices are reset to continue the game
+            if (firstChoice && secondChoice) {
+                if (firstChoice === secondChoice) {
                     setTimeout(match, delay);
                 }
-                setTimeout(resetGuesses, delay);
+                setTimeout(resetChoices, delay);
             }
-            previousTarget = clicked;
+            previousChoice = clicked;
         }
     });
 });

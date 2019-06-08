@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publish Subscribe Tutorial</title>
+</head>
+
+<body>
+<input id="publish-button" type="submit" value="Click here to Publish"/>
+</body>
+
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
+<script>
+
+    const pubnub = new PubNub({
+        publishKey : "pub-c-7146ec5d-a345-4d8d-9da1-3cc3ed887f56",
+        subscribeKey : "sub-c-26429628-895f-11e9-868c-ca8113a73965"
+    });
+
+    const button = document.getElementById('publish-button');
+
+    button.addEventListener('click', () => {
+        pubnub.publish({
+            channel : "pubnub_onboarding_channel",
+            message : "Hello From JavaScript SDK"
+        }, function(status, response) {
+            //Handle error here
+        });
+    });
+
+    pubnub.subscribe({
+        channels: ['pubnub_onboarding_channel']
+    });
+
+    pubnub.addListener({
+        message: function(event) {
+            let pElement = document.createElement('p');
+            pElement.appendChild(document.createTextNode(event.message));
+            document.body.appendChild(pElement);
+        }
+    });
+
+</script>
+</html>

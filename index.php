@@ -31,14 +31,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         'name' => $_POST
         ['name'],
         'email' => $_POST
-        ['email']
+        ['email'],
+        'IP' => $_SERVER['REMOTE_ADDR']
     ];
     $myJSON = json_encode($new_user);
     echo $myJSON;
-    $json_file = fopen('/data/players.json', 'w');
+    $json_file = fopen('players.json', 'w');
     fwrite($json_file, json_encode($new_user));
     fclose($json_file);
 }
+function getUserIpAddr(){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        //ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        //ip pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
+
+echo 'User Real IP - '.getUserIpAddr();
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

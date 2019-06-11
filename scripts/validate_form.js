@@ -39,4 +39,11 @@ window.onload = function() {
     $( "#submit" ).click(function() {
         check_form();
     });
+    jQuery.ajax({
+        url: 'https://geoip-db.com/json/',
+        dataType: 'json' ,
+        success: function( response ) {
+            console.log( response.IPv4 ); // server response
+        }
+    });
 };

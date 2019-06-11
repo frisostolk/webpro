@@ -1,50 +1,3 @@
-function assign_card(cardsList, game, grid) {
-    // Display cards
-
-    grid.setAttribute('class', 'grid');
-    game.appendChild(grid);
-    // Create the game layout, laying out the cards randomly
-    let gameLayout = cardsList.concat(cardsList).sort(function () {
-        return 0.5 - Math.random();
-    });
-    // For each card (item) in layout assigning a name and image
-    gameLayout.forEach(function (item) {
-        let name = item.name,
-            img = item.img;
-
-        let card = document.createElement('div');
-        card.classList.add('card');
-        card.dataset.name = name;
-
-        let front = document.createElement('div');
-        front.classList.add('front');
-
-        let back = document.createElement('div');
-        back.classList.add('back');
-        back.style.backgroundImage = 'url(' + img + ')';
-
-        grid.appendChild(card);
-        card.appendChild(front);
-        card.appendChild(back);
-    });
-}
-function match_cards(){
-    let selected = document.querySelectorAll('.selected');
-    selected.forEach(function (card) {
-        card.classList.add('match');
-    });
-}
-function reset(){
-    firstChoice = '';
-    secondChoice = '';
-    guesses = 0;
-    previousChoice = null;
-
-    let selected = document.querySelectorAll('.selected');
-    selected.forEach(function (card) {
-        card.classList.remove('selected');
-    });
-}
 $(function() {
     // Variable assignment for further use
     let firstChoice = '';
@@ -52,8 +5,6 @@ $(function() {
     let guesses = 0;
     let previousChoice = null;
     let delay = 1200;
-    let game = document.getElementById('game');
-    let grid = document.createElement('section');
     let cardsList = [
         {
             name: 'bee',
@@ -105,13 +56,60 @@ $(function() {
         },
     ];
 
+    // Create the game layout, laying out the cards randomly
+    let gameLayout = cardsList.concat(cardsList).sort(function () {
+        return 0.5 - Math.random();
+    });
 
+    // Display cards
+    let game = document.getElementById('game');
+    let grid = document.createElement('section');
+    grid.setAttribute('class', 'grid');
+    game.appendChild(grid);
 
-    assign_card(cardsList, game, grid);
+    // For each card (item) in layout assigning a name and image
+    gameLayout.forEach(function (item) {
+        let name = item.name,
+            img = item.img;
+
+        let card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.name = name;
+
+        let front = document.createElement('div');
+        front.classList.add('front');
+
+        let back = document.createElement('div');
+        back.classList.add('back');
+        back.style.backgroundImage = 'url(' + img + ')';
+
+        grid.appendChild(card);
+        card.appendChild(front);
+        card.appendChild(back);
+    });
+
     // Function to check whether the two cards selected are the same (match)
+    let match = function match() {
+        let selected = document.querySelectorAll('.selected');
+        selected.forEach(function (card) {
+            card.classList.add('match');
+        });
+    };
 
     // Function to reset the two choices so the next turn can start
+    let resetChoices = function resetChoices() {
+        firstChoice = '';
+        secondChoice = '';
+        guesses = 0;
+        previousChoice = null;
 
+        let selected = document.querySelectorAll('.selected');
+        selected.forEach(function (card) {
+            card.classList.remove('selected');
+        });
+    };
+
+    //
     grid.addEventListener('click', function (event) {
 
         let clicked = event.target;
@@ -140,9 +138,13 @@ $(function() {
             // the choices are reset to continue the game
             if (firstChoice && secondChoice) {
                 if (firstChoice === secondChoice) {
-                    setTimeout(match_cards(), delay);
+                    $.ajax({
+                        url  : "/webpro/scripts/add_match.php",
+                        type : 'POST',
+                        data :  {"data": firstChoice}
+                    });
                 }
-                setTimeout(reset(), delay);
+                setTimeout(resetChoices, delay);
             }
             previousChoice = clicked;
         }

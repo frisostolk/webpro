@@ -24,20 +24,24 @@ echo"<h2>Welcome Player!</h2>";?>
     <div id="submit" class="btn btn-primary mb-2">Let's play</div
 </form>
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     // Create new User Array
-    print_r($_POST);
     $new_user = [
         'name' => $_POST
         ['name'],
         'email' => $_POST
         ['email'],
-        'IP' => $_SERVER['REMOTE_ADDR']
+        'IP' => getUserIpAddr()
     ];
     $myJSON = json_encode($new_user);
-    echo $myJSON;
+    $old_json =  file_get_contents("players.json");
+    $json_decode = json_decode($old_json, true);
+    array_push($json_decode, $new_user);
+    print_r($json_decode);
     $json_file = fopen('players.json', 'w');
-    fwrite($json_file, json_encode($new_user));
+    fwrite($json_file, json_encode($json_decode));
     fclose($json_file);
 }
 function getUserIpAddr(){
@@ -55,8 +59,7 @@ function getUserIpAddr(){
 
 echo 'User Real IP - '.getUserIpAddr();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 
 ?>
 <?php

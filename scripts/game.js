@@ -75,7 +75,7 @@ $(function() {
         let card = document.createElement('div');
         card.classList.add('card');
         card.dataset.name = name;
-
+        card.classList.add(name);
         let front = document.createElement('div');
         front.classList.add('front');
 
@@ -139,7 +139,8 @@ $(function() {
             if (firstChoice && secondChoice) {
                 $.getJSON( "../webpro/data/match.json", function( data ) {
                     console.log(data.data);
-                    $( "input[data-name="+ data.data + "]" ).addClass("match");
+                    let variable_check = $("."+data.data);
+                    variable_check.addClass("match");
                 });
                 if (firstChoice === secondChoice) {
                     $.ajax({

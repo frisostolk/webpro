@@ -91,7 +91,7 @@ $(function() {
     // Function to check whether the two cards selected are the same (match)
     let match = function match() {
         let selected = document.querySelectorAll('.selected');
-        selected.forEach(function (card) {
+        selected.forEach(function () {
             card.classList.add('match');
         });
     };
@@ -137,17 +137,20 @@ $(function() {
             // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
             // the choices are reset to continue the game
             if (firstChoice && secondChoice) {
-                $.ajax({
-                    url: '../webpro/scripts/add_match.php',
-                    type: 'POST',
-                    data: { firstChoice : firstChoice },
-                    success: function (data)
-                    {
-                        console.log(data);
-                        alert("works!");
-                    }
+                $.getJSON( "../webpro/data/match.json", function( data ) {
+                    console.log(data.data);
+                    $( "input[data-name="+ data.data + "]" ).addClass("match");
                 });
                 if (firstChoice === secondChoice) {
+                    $.ajax({
+                        url: '../webpro/scripts/add_match.php',
+                        type: 'POST',
+                        data: { "data" : firstChoice },
+                        success: function (data)
+                        {
+                            console.log(data);
+                        }
+                    });
                 }
                 setTimeout(resetChoices, delay);
             }

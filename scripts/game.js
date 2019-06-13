@@ -8,10 +8,13 @@ $(function() {
     let match_empty = false;
     let player1_move = true;
     let player2_move = false;
+    var player1;
+    var player2;
+    let match_count = 0;
     $.getJSON( "../webpro/players.json", function( players ){
-        var player1 = players[2].IP;
-        var player2 = players[3].IP;
-    })
+        player1 = players[0].IP;
+        player2 = players[1].IP;
+    alert(player1);
     let cardsList = [
         {
             name: 'bee',
@@ -95,12 +98,6 @@ $(function() {
     });
 
     // Function to check whether the two cards selected are the same (match)
-    let match = function match() {
-        let selected = document.querySelectorAll('.selected');
-        selected.forEach(function () {
-            card.classList.add('match');
-        });
-    };
     //console.log(match_empty);
     let matched = function matched() {
         $.getJSON("../webpro/data/match.json", function (data) {
@@ -130,16 +127,16 @@ $(function() {
     };
     //
     grid.addEventListener('click', function (event) {
-
-        let clicked = event.target;
         $.ajax({
-            url: '../webpro/scripts/get_ip.php',
-            type: 'GET',
-            success: function (data)
-            {
-                console.log(data);
+            url:'../webpro/scripts/get_ip.php',
+            type:'POST',
+            data: {action: 'test'},
+            success: function(result){
+                console.log(result);
             }
         });
+
+        let clicked = event.target;
         // Making sure that only the images can be clicked and not the grid in between
         if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
             return;
@@ -170,10 +167,6 @@ $(function() {
                         url: '../webpro/scripts/add_match.php',
                         type: 'POST',
                         data: { "data" : firstChoice },
-                        success: function (data)
-                        {
-                            //console.log(data);
-                        }
                     });
                 }
                 setTimeout(resetChoices, delay);
@@ -185,4 +178,5 @@ $(function() {
     if(match_count > 11){
         alert('spel voorbij');
     }
+    });
 });

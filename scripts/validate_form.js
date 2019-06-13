@@ -38,6 +38,14 @@ function check_form() {
 window.onload = function() {
     $( "#submit" ).click(function() {
         check_form();
+        $.ajax({
+            url: '../webpro/scripts/clear_match.php',
+            type: 'POST',
+            success: function (data)
+            {
+                console.log(data);
+            }
+        });
     });
     jQuery.ajax({
         url: 'https://geoip-db.com/json/',

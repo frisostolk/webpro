@@ -5,6 +5,7 @@ $(function() {
     let guesses = 0;
     let previousChoice = null;
     let delay = 1200;
+    let match_empty = false;
     let cardsList = [
         {
             name: 'bee',
@@ -95,7 +96,20 @@ $(function() {
             card.classList.add('match');
         });
     };
+    // console.log(match_empty);
+    let matched = function matched() {
+        if(match_empty === true) {
+            $.getJSON("../webpro/data/match.json", function (data) {
+                var x;
+                for (x in data) {
+                    //console.log(data[x]);
+                    $("." + data[x].data).addClass("match");
+                }
 
+            });
+        };
+    };
+    setInterval(matched, 100);
     // Function to reset the two choices so the next turn can start
     let resetChoices = function resetChoices() {
         firstChoice = '';
@@ -137,12 +151,8 @@ $(function() {
             // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
             // the choices are reset to continue the game
             if (firstChoice && secondChoice) {
-                $.getJSON( "../webpro/data/match.json", function( data ) {
-                    console.log(data.data);
-                    let variable_check = $("."+data.data);
-                    variable_check.addClass("match");
-                });
                 if (firstChoice === secondChoice) {
+                    match_empty = true;
                     $.ajax({
                         url: '../webpro/scripts/add_match.php',
                         type: 'POST',

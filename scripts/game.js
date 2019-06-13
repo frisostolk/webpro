@@ -101,7 +101,7 @@ $(function() {
             $.getJSON("../webpro/data/match.json", function (data) {
                 var x;
                 for (x in data) {
-                    console.log("test");
+                    console.log(data[x].data);
                     $("." + data[x].data).addClass("match");
                 }
 

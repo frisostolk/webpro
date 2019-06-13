@@ -32,7 +32,9 @@ function startTimer(duration, display) {
 }
 
 window.onload = function () {
+
     var tenMinutes = 60 * 10,
+
         display = document.querySelector('#time');
     startTimer(tenMinutes, display);
 };

@@ -33,12 +33,19 @@ function startTimer(duration, display) {
                 }
             };
 
+            var timerText = document.getElementById("timerText");
+            timerText.style.display = "none";
+            timer = 'done';
+
         }
     }, 1000);
 }
 
+
 window.onload = function () {
-    var twoMinutes = 60 * 2,
+    var twoMinutes = 60 * 0.1,
         display = document.querySelector('#time');
+    var timerText = document.getElementById("timerText");
+    timerText.style.display = "block";
     startTimer(twoMinutes, display);
 };

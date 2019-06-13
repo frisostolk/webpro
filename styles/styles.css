@@ -71,6 +71,10 @@ body {
     background: white !important;
 }
 
+.timer {
+    display: none;
+}
+
 .modal {
     display: none;
     position: fixed;

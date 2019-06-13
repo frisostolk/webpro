@@ -6,7 +6,12 @@ $(function() {
     let previousChoice = null;
     let delay = 1200;
     let match_empty = false;
-    let match_count = 0;
+    let player1_move = true;
+    let player2_move = false;
+    $.getJSON( "../webpro/players.json", function( players ){
+        var player1 = players[2].IP;
+        var player2 = players[3].IP;
+    })
     let cardsList = [
         {
             name: 'bee',
@@ -101,7 +106,7 @@ $(function() {
         $.getJSON("../webpro/data/match.json", function (data) {
             var x;
             for (x in data) {
-                console.log(data[x].data);
+                //console.log(data[x].data);
                 $("." + data[x].data).addClass("match");
             }
 
@@ -127,7 +132,14 @@ $(function() {
     grid.addEventListener('click', function (event) {
 
         let clicked = event.target;
-
+        $.ajax({
+            url: '../webpro/scripts/get_ip.php',
+            type: 'GET',
+            success: function (data)
+            {
+                console.log(data);
+            }
+        });
         // Making sure that only the images can be clicked and not the grid in between
         if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
             return;
@@ -139,12 +151,12 @@ $(function() {
             // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
             if (guesses === 1) {
                 firstChoice = clicked.parentNode.dataset.name;
-                console.log(firstChoice);
+                //console.log(firstChoice);
                 clicked.parentNode.classList.add('selected');
                 // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
             } else {
                 secondChoice = clicked.parentNode.dataset.name;
-                console.log(secondChoice);
+                //console.log(secondChoice);
                 clicked.parentNode.classList.add('selected');
             }
 
@@ -160,7 +172,7 @@ $(function() {
                         data: { "data" : firstChoice },
                         success: function (data)
                         {
-                            console.log(data);
+                            //console.log(data);
                         }
                     });
                 }
@@ -168,9 +180,9 @@ $(function() {
             }
             previousChoice = clicked;
         }
-        if(match_count > 11){
-            alert('spel voorbij');
-        };
 
     });
+    if(match_count > 11){
+        alert('spel voorbij');
+    }
 });

@@ -9,12 +9,18 @@ include __DIR__ . '/tpl/body_start.php';
 <script src="scripts/timer.js"></script>
 
 <div id="game">
-    <div id="timer">You still have <span id="time">02:00</span> minutes/seconds!</div>
-
+    <div id="timer">You still have <span id="time">10:00</span> minutes/seconds!</div>
+    <div id="scores">
+        <p>Scores:</p>
+        <p>Player 1:</p>
+        <p>Player 2:</p>
+    </div>
     <div id="endGameModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <p>The game has ended!</p>
+            <p>Score Player 1: </p>
+            <p>Score Player 2: </p>
+            <button class="close">Let's play another game!</button>
         </div>
     </div>
 </div>

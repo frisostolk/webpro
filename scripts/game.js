@@ -6,6 +6,7 @@ $(function() {
     let previousChoice = null;
     let delay = 1200;
     let match_empty = false;
+    let match_count = 0;
     let cardsList = [
         {
             name: 'bee',
@@ -56,7 +57,6 @@ $(function() {
             img: 'data/img/wumpus.png',
         },
     ];
-
     // Create the game layout, laying out the cards randomly
     let gameLayout = cardsList.concat(cardsList).sort(function () {
         return 0.5 - Math.random();
@@ -96,18 +96,16 @@ $(function() {
             card.classList.add('match');
         });
     };
-    // console.log(match_empty);
+    //console.log(match_empty);
     let matched = function matched() {
-        if(match_empty === true) {
             $.getJSON("../webpro/data/match.json", function (data) {
                 var x;
                 for (x in data) {
-                    //console.log(data[x]);
+                    console.log("test");
                     $("." + data[x].data).addClass("match");
                 }
 
             });
-        };
     };
     setInterval(matched, 100);
     // Function to reset the two choices so the next turn can start
@@ -122,7 +120,9 @@ $(function() {
             card.classList.remove('selected');
         });
     };
-
+    if(match_count > 11){
+        alert('spel voorbij');
+    };
     //
     grid.addEventListener('click', function (event) {
 
@@ -152,6 +152,7 @@ $(function() {
             // the choices are reset to continue the game
             if (firstChoice && secondChoice) {
                 if (firstChoice === secondChoice) {
+                    match_count += 1;
                     match_empty = true;
                     $.ajax({
                         url: '../webpro/scripts/add_match.php',
@@ -167,27 +168,9 @@ $(function() {
             }
             previousChoice = clicked;
         }
+        if(match_count > 11){
+            alert('spel voorbij');
+        };
 
-        $(function() {
-            $.ajaxSetup({
-                error: function(jqXHR, exception) {
-                    if (jqXHR.status === 0) {
-                        alert('Not connect.\n Verify Network.');
-                    } else if (jqXHR.status == 404) {
-                        alert('Requested page not found. [404]');
-                    } else if (jqXHR.status == 500) {
-                        alert('Internal Server Error [500].');
-                    } else if (exception === 'parsererror') {
-                        alert('Requested JSON parse failed.');
-                    } else if (exception === 'timeout') {
-                        alert('Time out error.');
-                    } else if (exception === 'abort') {
-                        alert('Ajax request aborted.');
-                    } else {
-                        alert('Uncaught Error.\n' + jqXHR.responseText);
-                    }
-                }
-            });
-        });
     });
 });

@@ -43,7 +43,7 @@ function startTimer(duration, display) {
 
 
 window.onload = function () {
-    var twoMinutes = 60 * 0.1,
+    var twoMinutes = 60 * 2,
         display = document.querySelector('#time');
     var timerText = document.getElementById("timerText");
     timerText.style.display = "block";

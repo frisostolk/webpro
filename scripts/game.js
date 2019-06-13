@@ -10,7 +10,6 @@ $(function() {
     let player2_move = false;
     var player1;
     var player2;
-    let match_count = 0;
     $.getJSON( "../webpro/players.json", function( players ){
         player1 = players[0].IP;
         player2 = players[1].IP;
@@ -122,10 +121,34 @@ $(function() {
             card.classList.remove('selected');
         });
     };
-    if(match_count > 11){
-        alert('spel voorbij');
-    };
-    //
+
+    // if all cards have been matched this detects it and will stop the game and show the modal
+    var flag = true;
+    $('.grid').find('div.child').each(function(){
+        if(!$(this).hasClass('match'))
+            flag = false;
+    });
+    if(flag){
+        console.log("all have match");
+        $("#timer").hide();
+        // Get the modal
+        var modal = document.getElementById("endGameModal");
+
+        // Get the <span> element that closes the modal
+        var button = document.getElementsByClassName("close")[0];
+
+        // Show the modal
+        modal.style.display = "block";
+
+        // When player clicks on button, player is redirected to the homepage
+        button.onclick = function() {
+            window.location = 'http://siegfried.webhosting.rug.nl/~s3782808/webpro/index.php'
+        };
+    }
+    else {
+        console.log("not all have match")
+    }
+
     grid.addEventListener('click', function (event) {
         $.ajax({
             url:'../webpro/scripts/get_ip.php',
@@ -161,7 +184,6 @@ $(function() {
             // the choices are reset to continue the game
             if (firstChoice && secondChoice) {
                 if (firstChoice === secondChoice) {
-                    match_count += 1;
                     match_empty = true;
                     $.ajax({
                         url: '../webpro/scripts/add_match.php',

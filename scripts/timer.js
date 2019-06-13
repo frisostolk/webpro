@@ -11,41 +11,30 @@ function startTimer(duration, display) {
 
         // If the time is up a modal pops up with the scores etc.
         if (--timer < 0) {
-
+            $("#timer").hide();
             // Get the modal
             var modal = document.getElementById("endGameModal");
 
             // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
+            var button = document.getElementsByClassName("close")[0];
 
             // Show the modal
             modal.style.display = "block";
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
+            // When player clicks on button, player is redirected to the homepage
+            button.onclick = function() {
+                window.location = 'http://siegfried.webhosting.rug.nl/~s3782808/webpro/index.php'
             };
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            };
-
-            var timerText = document.getElementById("timerText");
-            timerText.style.display = "none";
-            timer = 'done';
 
         }
     }, 1000);
 }
 
-
 window.onload = function () {
-    var twoMinutes = 60 * 0.1,
+
+    var tenMinutes = 60 * 10,
+
         display = document.querySelector('#time');
-    var timerText = document.getElementById("timerText");
-    timerText.style.display = "block";
-    startTimer(twoMinutes, display);
+    startTimer(tenMinutes, display);
 };

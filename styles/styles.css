@@ -109,3 +109,19 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+#timer {
+    font-size: 24px;
+    width: 15%;
+    margin-left: -15%;
+    margin-bottom: -10%;
+    margin-top: 2%;
+}
+
+#scores {
+    font-size: 18px;
+    width: 15%;
+    margin-left: -15%;
+    margin-bottom: -27%;
+    margin-top: 15%;
+}

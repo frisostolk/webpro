@@ -98,14 +98,14 @@ $(function() {
     };
     //console.log(match_empty);
     let matched = function matched() {
-            $.getJSON("../webpro/data/match.json", function (data) {
-                var x;
-                for (x in data) {
-                    console.log(data[x].data);
-                    $("." + data[x].data).addClass("match");
-                }
+        $.getJSON("../webpro/data/match.json", function (data) {
+            var x;
+            for (x in data) {
+                console.log(data[x].data);
+                $("." + data[x].data).addClass("match");
+            }
 
-            });
+        });
     };
     setInterval(matched, 100);
     // Function to reset the two choices so the next turn can start

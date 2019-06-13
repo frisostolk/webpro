@@ -8,7 +8,7 @@ $navigation = Array(
 include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 echo"<h2>Welcome Player!</h2>";?>
-<form method="POST" id="welcome_form">
+<form action="game.php" method="POST" id="welcome_form">
     <div class="form-group row">
         <label for="email" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
@@ -38,11 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $myJSON = json_encode($new_user);
     $old_json =  file_get_contents("players.json");
     $json_decode = json_decode($old_json, true);
-    array_push($json_decode, $new_user);
+    $count_json = count($json_decode);
     print_r($json_decode);
+    array_push($json_decode, $new_user);
+    echo$count_json;
+    if($count_json < 5){
     $json_file = fopen('players.json', 'w');
     fwrite($json_file, json_encode($json_decode));
     fclose($json_file);
+    }
 }
 function getUserIpAddr(){
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){

@@ -214,6 +214,7 @@ $(function() {
                     // the choices are reset to continue the game
                     if (firstChoice && secondChoice) {
                         i += 1;
+                        allMatchCheck();
                         if (firstChoice === secondChoice) {
                             match_count += 1;
                             match_empty = true;

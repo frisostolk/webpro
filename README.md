@@ -22,11 +22,13 @@ For this project we wanted to make an efficient and clear code. To keep our file
     <ul>
       <li>img</li>
       <li>match.json</li>
+      <li>move.json</li>
       <li>players.json</li>
     </ul>
   <li>Scripts</li>
      <ul>
       <li>add_match.php</li>
+      <li>clear_match.php</li>
       <li>game.js</li>
       <li>get_ip.php</li>
       <li>score.js</li>
@@ -42,7 +44,8 @@ For this project we wanted to make an efficient and clear code. To keep our file
       <li>body_end.php</li>
       <li>body_start.php</li>
       <li>head.php</li>
-    </ul>
+    </ul>    
+  <li>.gitignore</li>
   <li>game.php</li>
   <li>index.php</li>
   <li>rules.php</li>

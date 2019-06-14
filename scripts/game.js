@@ -6,15 +6,17 @@ $(function() {
     let previousChoice = null;
     let delay = 1200;
     let match_empty = false;
+    let player1_move = true;
+    let player2_move = false;
+    var player1;
+    var player2;
     let ip_move;
-    let player1;
-    let player2;
     let i = 0;
     let match_count = 0;
-    $.getJSON( "../webpro/players.json", function( players ){
+    $.getJSON("../webpro/players.json", function (players) {
         player1 = players[0].IP;
         player2 = players[1].IP;
-        alert(player1);
+        //alert(player1);
         let cardsList = [
             {
                 name: 'bee',
@@ -122,80 +124,78 @@ $(function() {
                 card.classList.remove('selected');
             });
         };
-        var return_ip;
-        $.ajax({
-            type: "POST",
-            url: "https://jsonip.com",
-            data: {get:"ip"},
-            dataType: "json",
-            context: document.body,
-            async: true,
-            success: function(res) {
-                return_ip = res.ip;
-                myCallback(return_ip);
-            },
-            error: function(res) {
-                alert("IP thing didn't work.");
-            }
-        });
-
-        function myCallback(){
-            // Do whatever you want with ip here.
-            console.log(return_ip);
-        }
         //
         grid.addEventListener('click', function (event) {
-            if(i%2 === 0){
-                ip_move = players[0].IP;
-                console.log(ip_move+ " boem");
-            }
-            else{
-                ip_move = players[1].IP;
-                console.log(ip_move + " help");
-            }
-            i+=1;
-            let clicked = event.target;
-            // Making sure that only the images can be clicked and not the grid in between
-            if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match') || ip_move !== return_ip ){
-                return;
-            }
-
-            // statements to check whether it's a match or not
-            if (guesses < 2) {
-                guesses++;
-                // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
-                if (guesses === 1) {
-                    firstChoice = clicked.parentNode.dataset.name;
-                    //console.log(firstChoice);
-                    clicked.parentNode.classList.add('selected');
-                    // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
+            $.getJSON("../webpro/data/move.json", function (move) {
+                var move_11 = move.IP;
+                console.log(move_11);
+                $.ajax({
+                    url: '../webpro/scripts/get_ip.php',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {'data': 'test'},
+                });
+                if (i % 2 === 0) {
+                    ip_move = players[0].IP;
+                    //console.log(ip_move+ " boem");
                 } else {
-                    secondChoice = clicked.parentNode.dataset.name;
-                    //console.log(secondChoice);
-                    clicked.parentNode.classList.add('selected');
+                    ip_move = players[1].IP;
+                    //console.log(ip_move + " help");
+                }
+                if(move_11 === player1){
+                    console.log("gelijk");
+                    console.log(move_11);
+                    console.log(player1);
+                    var gelijk = true;
+                }else{
+                    console.log("ongelijk");
+                    console.log(move_11);
+                    console.log(player1);
+                    var gelijk = false;
                 }
 
-                // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
-                // the choices are reset to continue the game
-                if (firstChoice && secondChoice) {
-                    i += 1;
-                    if (firstChoice === secondChoice) {
-                        match_count += 1;
-                        match_empty = true;
-                        $.ajax({
-                            url: '../webpro/scripts/add_match.php',
-                            type: 'POST',
-                            data: { "data" : firstChoice },
-                        });
+                let clicked = event.target;
+                // Making sure that only the images can be clicked and not the grid in between
+                if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match') || move_11 === ip_move) {
+                    return;
+                }
+                // statements to check whether it's a match or not
+                if (guesses < 2) {
+                    guesses++;
+                    // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
+                    if (guesses === 1) {
+                        firstChoice = clicked.parentNode.dataset.name;
+                        //console.log(firstChoice);
+                        clicked.parentNode.classList.add('selected');
+                        // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
+                    } else {
+                        secondChoice = clicked.parentNode.dataset.name;
+                        //console.log(secondChoice);
+                        clicked.parentNode.classList.add('selected');
                     }
-                    setTimeout(resetChoices, delay);
-                }
-                previousChoice = clicked;
-            }
 
+                    // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
+                    // the choices are reset to continue the game
+                    if (firstChoice && secondChoice) {
+                        i += 1;
+                        if (firstChoice === secondChoice) {
+                            match_count += 1;
+                            match_empty = true;
+                            $.ajax({
+                                url: '../webpro/scripts/add_match.php',
+                                type: 'POST',
+                                data: {"data": firstChoice},
+                            });
+                        }
+                        setTimeout(resetChoices, delay);
+                    }
+                    previousChoice = clicked;
+                }
+
+            });
+            if (match_count > 11) {
+                alert('spel voorbij');
+            }
         });
-        if(match_count > 11){
-            alert('spel voorbij');
-        }
     });
 });

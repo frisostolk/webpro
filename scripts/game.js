@@ -124,6 +124,42 @@ $(function() {
                 card.classList.remove('selected');
             });
         };
+
+        // function to check if all cards have the class match
+        let allMatchCheck = function allMatchCheck() {
+            // if all cards have been matched this detects it and will stop the game and show the modal
+            var flag = true;
+            // looks in section for all divs with class card
+            $('section').find('div.card').each(function(){
+                // looping through all div.card and checking whether it has 'match' as class
+                // of all of them have 'match' the flag will stay true
+                if(!$(this).hasClass('match'))
+                    flag = false;
+            });
+            // if flag is true the modal shows just as when the time is up
+            if(flag){
+                console.log("all have match");
+                $("#timer").hide();x
+                // Get the modal
+                var modal = document.getElementById("endGameModal");
+
+                // Get the <span> element that closes the modal
+                var button = document.getElementsByClassName("close")[0];
+
+                // Show the modal
+                modal.style.display = "block";
+
+                // When player clicks on button, player is redirected to the homepage
+                button.onclick = function() {
+                    window.location = 'http://siegfried.webhosting.rug.nl/~s3782808/webpro/index.php'
+                };
+            }
+            else {
+                console.log("not all have match")
+            }
+
+        };
+
         //
         grid.addEventListener('click', function (event) {
             $.getJSON("../webpro/data/move.json", function (move) {
@@ -193,9 +229,6 @@ $(function() {
                 }
 
             });
-            if (match_count > 11) {
-                alert('spel voorbij');
-            }
         });
     });
 });

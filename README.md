@@ -45,6 +45,7 @@ For this project we wanted to make an efficient and clear code. To keep our file
     </ul>
   <li>game.php</li>
   <li>index.php</li>
+  <li>rules.php</li>
 </ul>  
 
 

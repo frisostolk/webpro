@@ -142,17 +142,6 @@ $(function() {
                     ip_move = players[1].IP;
                     //console.log(ip_move + " help");
                 }
-                if(move_11 === player1){
-                    console.log("gelijk");
-                    console.log(move_11);
-                    console.log(player1);
-                    var gelijk = true;
-                }else{
-                    console.log("ongelijk");
-                    console.log(move_11);
-                    console.log(player1);
-                    var gelijk = false;
-                }
 
                 let clicked = event.target;
                 // Making sure that only the images can be clicked and not the grid in between
@@ -180,7 +169,6 @@ $(function() {
                         i += 1;
                         if (firstChoice === secondChoice) {
                             match_count += 1;
-                            match_empty = true;
                             $.ajax({
                                 url: '../webpro/scripts/add_match.php',
                                 type: 'POST',

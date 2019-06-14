@@ -5,17 +5,16 @@ $(function() {
     let guesses = 0;
     let previousChoice = null;
     let delay = 1200;
-    let match_empty = false;
     let player1_move = true;
     let player2_move = false;
     var player1;
     var player2;
     let i = 0;
-    let match_count = 0;
+
     $.getJSON( "../webpro/players.json", function( players ){
         player1 = players[0].IP;
         player2 = players[1].IP;
-        alert(player1);
+        // alert(player1);
         let cardsList = [
             {
                 name: 'bee',
@@ -99,7 +98,6 @@ $(function() {
         });
 
         // Function to check whether the two cards selected are the same (match)
-        //console.log(match_empty);
         let matched = function matched() {
             $.getJSON("../webpro/data/match.json", function (data) {
                 var x;
@@ -111,6 +109,37 @@ $(function() {
             });
         };
         setInterval(matched, 100);
+
+        // This function checks whether all cards have the class 'match', if so: it shows the endGame popup
+        let allMatchCheck = function allMatchCheck() {
+            var flag = true;
+            $('div').find('.card').each(function(){
+                if(!$(this).hasClass('match'))
+                    flag = false;
+            });
+            if(flag){
+                console.log("all have match");
+                $("#timer").hide();
+                // Get the modal
+                var modal = document.getElementById("endGameModal");
+
+                // Get the <span> element that closes the modal
+                var button = document.getElementsByClassName("close")[0];
+
+                // Show the modal
+                modal.style.display = "block";
+
+                // When player clicks on button, player is redirected to the homepage
+                button.onclick = function() {
+                    window.location = 'http://siegfried.webhosting.rug.nl/~s3782808/webpro/index.php'
+                };
+            }
+            else {
+                console.log("not all have match")
+            }
+        };
+
+
         // Function to reset the two choices so the next turn can start
         let resetChoices = function resetChoices() {
             firstChoice = '';
@@ -149,7 +178,7 @@ $(function() {
 
             let clicked = event.target;
             // Making sure that only the images can be clicked and not the grid in between
-            if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match') || ip_move !== return_ip ){
+            if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')){
                 return;
             }
 
@@ -159,12 +188,12 @@ $(function() {
                 // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
                 if (guesses === 1) {
                     firstChoice = clicked.parentNode.dataset.name;
-                    //console.log(firstChoice);
+                    // console.log(firstChoice);
                     clicked.parentNode.classList.add('selected');
                     // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
                 } else {
                     secondChoice = clicked.parentNode.dataset.name;
-                    //console.log(secondChoice);
+                    // console.log(secondChoice);
                     clicked.parentNode.classList.add('selected');
                 }
 
@@ -172,9 +201,8 @@ $(function() {
                 // the choices are reset to continue the game
                 if (firstChoice && secondChoice) {
                     i += 1;
+                    allMatchCheck();
                     if (firstChoice === secondChoice) {
-                        match_count += 1;
-                        match_empty = true;
                         $.ajax({
                             url: '../webpro/scripts/add_match.php',
                             type: 'POST',
@@ -187,8 +215,5 @@ $(function() {
             }
 
         });
-        if(match_count > 11){
-            alert('spel voorbij');
-        }
     });
 });

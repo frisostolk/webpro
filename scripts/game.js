@@ -113,10 +113,13 @@ $(function() {
         // This function checks whether all cards have the class 'match', if so: it shows the endGame popup
         let allMatchCheck = function allMatchCheck() {
             var flag = true;
+            // look for all elements in section with class 'card'
             $('section').find('.card').each(function(){
+                // looping through them and if one does not have class 'match' flag = false
                 if(!$(this).hasClass('match'))
                     flag = false;
             });
+            // if flag = true, it means that all cards have the class 'match' so the popup shows
             if(flag){
                 console.log("all have match");
                 $("#timer").hide();

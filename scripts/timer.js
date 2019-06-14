@@ -31,7 +31,7 @@ function startTimer(duration, display) {
 
             // When player clicks on button, player is redirected to the homepage
             button.onclick = function() {
-                window.location = 'http://siegfried.webhosting.rug.nl/~s3782808/webpro/index.php'
+                window.location = 'http://siegfried.webhosting.rug.nl/~s3792609/webpro/index.php'
             };
 
 

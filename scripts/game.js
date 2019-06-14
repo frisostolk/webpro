@@ -113,7 +113,7 @@ $(function() {
         // This function checks whether all cards have the class 'match', if so: it shows the endGame popup
         let allMatchCheck = function allMatchCheck() {
             var flag = true;
-            $('div').find('.card').each(function(){
+            $('section').find('.card').each(function(){
                 if(!$(this).hasClass('match'))
                     flag = false;
             });
@@ -216,4 +216,5 @@ $(function() {
 
         });
     });
+
 });

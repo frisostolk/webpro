@@ -1,20 +1,4 @@
-function validateEmail(email) {
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-function check_email() {
-    let email = $('#email');
-    let email_value = email.val();
-    if (validateEmail(email_value)) {
-        email.removeClass("is-invalid");
-        email.addClass("is-valid");
-        return true
-    } else {
-        email.removeClass("is-valid");
-        email.addClass("is-invalid");
-        return false
-    }
-}
+
 function check_name() {
     let name = $('#name');
     let nameForm = name.val();
@@ -28,9 +12,24 @@ function check_name() {
         return false
     }
 }
+
+function check_id() {
+    let ID = $('#ID');
+    let IDForm = ID.val();
+    if (IDForm !== "") {
+        ID.removeClass("is-invalid");
+        ID.addClass("is-valid");
+        return true
+    } else if (IDForm === "") {
+        ID.removeClass("is-valid");
+        ID.addClass("is-invalid");
+        return false
+    }
+}
+
 function check_form() {
 
-    if(check_name && check_email ){
+    if(check_name && check_id ){
         $("#welcome_form").submit();
     }
 }

@@ -5,6 +5,9 @@ function p_print($array){
     print_r($array);
     echo "</pre>";
 }
+// Image defined
+$background = "data/img/background.jpg";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +19,31 @@ function p_print($array){
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
 
     <!-- Scripts -->
+    <!-- For some reason styles.css is not recognized to styling is done here for now -->
+    <style type="text/css">
+        #styled {
+            background-color: white;
+            box-sizing: border-box;
+            position: absolute;
+            padding: 16px;
+            margin: 0 auto;
+            border-radius: 15px;
+        }
+
+        body, html {
+            height: 100%;
+        }
+
+        .bg {
+            background: url('<?php echo $background;?>') center no-repeat;
+            height: 100%;
+            background-size: cover;
+        }
+
+    </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="scripts/validate_form.js" type="text/javascript"></script>
     <script src="scripts/generate_id.js" type="text/javascript"></script>
@@ -48,3 +73,6 @@ function p_print($array){
         </ul>
     </nav>
 </header>
+
+<!-- Div for the background -->
+<div class="bg">

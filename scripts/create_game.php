@@ -3,7 +3,7 @@ error_reporting(E_ALL);
     ini_set('display_errors', 1);
     $game_id = uniqid();
     $files = scandir('../data/');
-    echo serialize($files);
+    echo print_r ($files, true);
     if(in_array($game_id, $files)){
         echo"sweet";
     }
@@ -21,5 +21,14 @@ error_reporting(E_ALL);
             );
         $json_file = fopen($game_id.'.json', 'w');
         fwrite($json_file, json_encode($game));
+        fclose($json_file);
+        $to = "../webpro/data/";
+        function move_file($json_file, $to){
+            $path_parts = pathinfo($json_file);
+            $newplace   = "$to/{$path_parts['basename']}";
+            if(rename($json_file, $newplace))
+                return $newplace;
+            return null;
+        }//deze functie schijnt niet te werken, heb ook al gewoon met rename geprobeerd en nog een ander ding
     }
-?> Ben er nu weer ff was ff aan kijken naar sessions
+?>

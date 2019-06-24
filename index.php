@@ -34,10 +34,22 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
 </form>
 
 <?php
-
-
-
+error_reporting(E_ALL);
+if(isset($_POST['button_id'])){
+ini_set('display_errors', 1);
+    $game_id = uniqid();
+    $files = scandir('../webpro/data/');
+    p_print( $files);
+    if(in_array($game_id, $files)){
+        echo"sweet";
+    }
+    else{
+        $json_file = fopen($game_id.'.json', 'w');
+        fwrite($json_file, json_encode($files));
+    }
+    }
 ?>
+
 <?php
 include __DIR__ . '/tpl/body_end.php';
 ?>

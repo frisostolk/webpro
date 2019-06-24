@@ -19,16 +19,12 @@ error_reporting(E_ALL);
                 "grid" => array(
                 )
             );
-        $json_file = fopen($game_id.'.json', 'w');
-        fwrite($json_file, json_encode($game));
-        fclose($json_file);
-        $to = "../webpro/data/";
-        function move_file($json_file, $to){
-            $path_parts = pathinfo($json_file);
-            $newplace   = "$to/{$path_parts['basename']}";
-            if(rename($json_file, $newplace))
-                return $newplace;
-            return null;
-        }//deze functie schijnt niet te werken, heb ook al gewoon met rename geprobeerd en nog een ander ding
+
+            $to = "../data/";
+            $filename = $to.$game_id;
+            $json_file = fopen($filename.'json', 'w');
+            fwrite($json_file, json_encode($game));
+            fclose($json_file);
+            
     }
 ?>

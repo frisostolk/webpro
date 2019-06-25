@@ -16,8 +16,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
     <form action="../webpro/scripts/create_game.php" method="post">
         <button id="button_id" name="button_id" class="btn btn-primary mb-2">Generate an ID</button>
     </form>
-    <p>Your Game ID: </p>
-    <p id="id"></p>
+    <br>
 
     <form method="POST" id="welcome_form">
         <div class="form-group row">
@@ -39,7 +38,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
 <?php
 error_reporting(E_ALL);
 if(isset($_POST['button_id'])){
-ini_set('display_errors', 1);
+    ini_set('display_errors', 1);
     $game_id = uniqid();
     $files = scandir('../data/');
     p_print( $files);
@@ -50,7 +49,7 @@ ini_set('display_errors', 1);
         $json_file = fopen($game_id.'.json', 'w');
         fwrite($json_file, json_encode($files));
     }
-    }
+}
 ?>
 
 <?php

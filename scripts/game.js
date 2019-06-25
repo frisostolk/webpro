@@ -110,12 +110,16 @@ $(function() {
                 request.done(function(data){
                     if(data == 1){
                         alert("jaaa");
+                        move = true;
+                    }
+                    else{
+                        move = false;
                     }
                 });
 
                 let clicked = event.target;
                 // Making sure that only the images can be clicked and not the grid in between
-                if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
+                if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')|| move === false) {
                     return;
                 }
                 // statements to check whether it's a match or not

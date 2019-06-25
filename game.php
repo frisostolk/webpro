@@ -41,28 +41,4 @@ include __DIR__ . '/tpl/body_start.php';
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    // Create new User Array
-    $new_user = [
-        'name' => $_POST
-        ['name'],
-        'email' => $_POST
-        ['email'],
-        'IP' => getUserIpAddr()
-    ];
-    $myJSON = json_encode($new_user);
-    $old_json =  file_get_contents("players.json");
-    $json_decode = json_decode($old_json, true);
-    $count_json = count($json_decode);
-    print_r($json_decode);
-    array_push($json_decode, $new_user);
-    echo$count_json;
-    if($count_json < 5){
-        $json_file = fopen('players.json', 'w');
-        fwrite($json_file, json_encode($json_decode));
-        fclose($json_file);
-    }
-}
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include __DIR__ . '/tpl/body_end.php';

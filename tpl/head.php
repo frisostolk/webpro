@@ -5,8 +5,6 @@ function p_print($array){
     print_r($array);
     echo "</pre>";
 }
-// Image defined
-$background = "data/img/background.jpg";
 
 ?>
 <!DOCTYPE html>
@@ -23,37 +21,17 @@ $background = "data/img/background.jpg";
 
     <!-- Scripts -->
     <!-- For some reason styles.css is not recognized to styling is done here for now -->
-    <style type="text/css">
-        #styled {
-            background-color: white;
-            box-sizing: border-box;
-            position: absolute;
-            padding: 16px;
-            margin: 0 auto;
-            border-radius: 15px;
-        }
 
-        body, html {
-            height: 100%;
-        }
-
-        .bg {
-            background: url('<?php echo $background;?>') center no-repeat;
-            height: 100%;
-            background-size: cover;
-        }
-
-    </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="scripts/validate_form.js" type="text/javascript"></script>
-<!--    <script src="/webpro/socket.io/socket.io.js"></script>-->
+    <!--    <script src="/webpro/socket.io/socket.io.js"></script>-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="../webpro/index.php">Memory</a>
-        <a class="navbar-brand" href="../webpro/rules.php">Game Rules</a>
+        <a class="navbar-brand" href="http://siegfried.webhosting.rug.nl/~s3792609/webpro/game.php">Memory</a>
+        <a class="navbar-brand" href="http://siegfried.webhosting.rug.nl/~s3792609/webpro/rules.php">Game Rules</a>
         <ul class="navbar-nav mr-auto">
             <?php $active = $navigation['active']; ?>
             <?php foreach($navigation['items'] as $title => $url){

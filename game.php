@@ -1,4 +1,3 @@
-
 </div>
 <?php
 include __DIR__ . '/tpl/head.php';
@@ -7,26 +6,24 @@ include __DIR__ . '/tpl/body_start.php';
 ?>
 <script src="scripts/game.js"></script>
 <script src="scripts/timer.js"></script>
-<style>
-    #gameid{
-        position: absolute;
-        left: 0px;
-        right: 500px;
-    }
-</style>
+
+<div id="timer">You still have <span id="time">10:00</span> minutes/seconds!</div>
+
+<div id="scores">
+    <p>Score player 1:</p>
+    <p>Score player 2:</p>
+</div>
+
+<div id="game_id">
+    <p>Game ID:</p>
+    <?php
+    $hallo = $_SESSION['gameid'];
+    echo $hallo;
+    ?>
+    <br>
+</div>
 
 <div id="game">
-    <div id="timer">You still have <span id="time">10:00</span> minutes/seconds!</div>
-    <div id="scores">
-        <p>Scores:</p>
-        <p>Player 1:</p>
-        <p>Player 2:</p>
-        <p>GAME ID:</p>
-        <?php
-        $hallo = $_SESSION['gameid'];
-        echo $hallo;
-        ?>
-    </div>
     <div id="endGameModal" class="modal">
         <div class="modal-content">
             <p>The game has ended!</p>

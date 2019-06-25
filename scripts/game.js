@@ -127,7 +127,7 @@ $(function() {
                     // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
                     // the choices are reset to continue the game
                     if (firstChoice && secondChoice) {
-                        i += 1;
+                        setTimeout(resetChoices, delay);
                         if (firstChoice === secondChoice) {
                         }
                         setTimeout(resetChoices, delay);

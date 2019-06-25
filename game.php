@@ -22,6 +22,7 @@ include __DIR__ . '/tpl/body_start.php';
         <p>Scores:</p>
         <p>Player 1:</p>
         <p>Player 2:</p>
+        <p>GAME ID:</p>
         <?php
         $hallo = $_SESSION['gameid'];
         echo $hallo;
@@ -61,18 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         fwrite($json_file, json_encode($json_decode));
         fclose($json_file);
     }
-}
-function getUserIpAddr(){
-    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-        //ip from share internet
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-        //ip pass from proxy
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }else{
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    return $ip;
 }
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

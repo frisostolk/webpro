@@ -1,23 +1,25 @@
 <?php
 error_reporting(E_ALL);
+session_start();
 ini_set('display_errors', 1);
-$game_id = uniqid();
 $files = scandir('../data/');
-echo print_r ($files, true);
-if(in_array($game_id, $files)){
-    echo"sweet";
+$file = $_POST['ID'].".json";
+echo $file;
+if(in_array($file, $files)){
+    $_SESSION['gameid'] = $file;
+    $json_file = file_get_contents("../data/".$file);
+    $json_file = json_decode($json_file, true);
+    $json_file['sessionID1'] = session_id();
+    $filename = "../data/".$file;
+    $file_open = fopen($filename, 'w');
+    fwrite($file_open, json_encode($json_file));
+    fclose($file_open);
+    header('Location: ../game.php');
 }
-else{
-    session_start();
-    array_push($game, [
-        "sessionID1" => session_id()
-    ]);
+else {
+    header('Location: ../index.php');
+}
 
 
-    $to = "../data/";
-    $filename = $to.$game_id;
-    $json_file = fopen($filename.'json', 'w');
-    fwrite($json_file, json_encode($game));
-    fclose($json_file);
-}
+
 ?>

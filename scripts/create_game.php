@@ -11,6 +11,7 @@ else{
     $_SESSION['gameid'] = uniqid();
     $game = array(
         "sessionID0" => $_SESSION['gameid'],
+        "sessionID1" => null,
         "turn" => 0,
         "state" => null,
         "creationDateTime" => time(),

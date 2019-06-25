@@ -3,9 +3,8 @@
 include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
-
-<div id="game">
-    <br>
+<br>
+<div id="styled">
     <h1>Game Rules:</h1>
     <br>
     <ol>

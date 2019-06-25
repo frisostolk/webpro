@@ -108,8 +108,8 @@ $(function() {
                 let request = $.post('../webpro/scripts/turn.php', { 'index': index });
 
                 request.done(function(data){
+                    alert(data);
                     if(data == 1){
-                        alert("jaaa");
                         move = true;
                     }
                     else{
@@ -142,6 +142,10 @@ $(function() {
                     if (firstChoice && secondChoice) {
                         if (firstChoice === secondChoice) {
                             alert('match');
+                        }
+                        else{
+                            let index = $(this).val();
+                            let request = $.post('../webpro/scripts/switch_turn.php', { 'index': index });
                         }
                         setTimeout(resetChoices, delay);
                     }

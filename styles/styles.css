@@ -6,6 +6,7 @@
 
 body {
     background-image: url("../data/img/background.jpg");
+    background-size: cover;
 }
 
 .container{
@@ -167,4 +168,20 @@ body {
     padding: 16px;
     margin: 0 auto;
     border-radius: 15px;
+}
+
+#button_id{
+    margin-left: 3%;
+    margin-top: 3%;
+}
+
+#styled-2 {
+    background-color: white;
+    box-sizing: border-box;
+    position: absolute;
+    padding: 16px;
+    margin-left: 35%;
+    border-radius: 15px;
+    float: right;
+
 }

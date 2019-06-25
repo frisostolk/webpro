@@ -11,7 +11,6 @@ else{
     session_start();
     $game = array(
         "sessionID0" => session_id(),
-        "sessionID1" => null,
         "turn" => 0,
         "state" => null,
         "creationDateTime" => time(),

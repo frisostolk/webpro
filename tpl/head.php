@@ -46,7 +46,6 @@ $background = "data/img/background.jpg";
     </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="scripts/validate_form.js" type="text/javascript"></script>
-    <script src="scripts/generate_id.js" type="text/javascript"></script>
 <!--    <script src="/webpro/socket.io/socket.io.js"></script>-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
 </head>

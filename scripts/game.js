@@ -5,18 +5,6 @@ $(function() {
     let guesses = 0;
     let previousChoice = null;
     let delay = 1200;
-    let match_empty = false;
-    let player1_move = true;
-    let player2_move = false;
-    var player1;
-    var player2;
-    let ip_move;
-    let i = 0;
-    let match_count = 0;
-    $.getJSON("../webpro/players.json", function (players) {
-        player1 = players[0].IP;
-        player2 = players[1].IP;
-        //alert(player1);
         let cardsList = [
             {
                 name: 'bee',
@@ -101,17 +89,6 @@ $(function() {
 
         // Function to check whether the two cards selected are the same (match)
         //console.log(match_empty);
-        let matched = function matched() {
-            $.getJSON("../webpro/data/match.json", function (data) {
-                var x;
-                for (x in data) {
-                    //console.log(data[x].data);
-                    $("." + data[x].data).addClass("match");
-                }
-
-            });
-        };
-        setInterval(matched, 100);
         // Function to reset the two choices so the next turn can start
         let resetChoices = function resetChoices() {
             firstChoice = '';
@@ -126,26 +103,10 @@ $(function() {
         };
         //
         grid.addEventListener('click', function (event) {
-            $.getJSON("../webpro/data/move.json", function (move) {
-                var move_11 = move.IP;
-                console.log(move_11);
-                $.ajax({
-                    url: '../webpro/scripts/get_ip.php',
-                    dataType: 'json',
-                    type: 'POST',
-                    data: {'data': 'test'},
-                });
-                if (i % 2 === 0) {
-                    ip_move = players[0].IP;
-                    //console.log(ip_move+ " boem");
-                } else {
-                    ip_move = players[1].IP;
-                    //console.log(ip_move + " help");
-                }
 
                 let clicked = event.target;
                 // Making sure that only the images can be clicked and not the grid in between
-                if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match') || move_11 === ip_move) {
+                if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
                     return;
                 }
                 // statements to check whether it's a match or not
@@ -168,22 +129,10 @@ $(function() {
                     if (firstChoice && secondChoice) {
                         i += 1;
                         if (firstChoice === secondChoice) {
-                            match_count += 1;
-                            $.ajax({
-                                url: '../webpro/scripts/add_match.php',
-                                type: 'POST',
-                                data: {"data": firstChoice},
-                            });
                         }
                         setTimeout(resetChoices, delay);
                     }
                     previousChoice = clicked;
                 }
-
-            });
-            if (match_count > 11) {
-                alert('spel voorbij');
-            }
         });
-    });
 });

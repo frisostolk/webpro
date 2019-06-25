@@ -18,7 +18,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
     </form>
     <br>
 
-    <form action="join_game.php" method="POST" id="welcome_form">
+    <form action="../webpro/scripts/join_game.php" method="POST" id="welcome_form">
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">

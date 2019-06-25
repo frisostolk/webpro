@@ -10,13 +10,13 @@ else{
     session_start();
     $_SESSION['gameid'] = uniqid();
     $game = array(
-        "sessionID0" => $_SESSION['gameid'],
+        "sessionID0" => session_id(),
         "sessionID1" => null,
         "turn" => 0,
         "state" => null,
         "creationDateTime" => time(),
         "lastActionDateTime" => time(),
-        "grid" => array(
+        "match" => array(
         )
     );
     echo $_SESSION['gameid'];

@@ -55,6 +55,7 @@ $(function() {
                 img: 'data/img/wumpus.png',
             },
         ];
+
         // Create the game layout, laying out the cards randomly
         let gameLayout = cardsList.concat(cardsList).sort(function () {
             return 0.5 - Math.random();
@@ -103,6 +104,14 @@ $(function() {
         };
         //
         grid.addEventListener('click', function (event) {
+                let index = $(this).val();
+                let request = $.post('../webpro/scripts/turn.php', { 'index': index });
+
+                request.done(function(data){
+                    if(data == 1){
+                        alert("jaaa");
+                    }
+                });
 
                 let clicked = event.target;
                 // Making sure that only the images can be clicked and not the grid in between
@@ -127,8 +136,8 @@ $(function() {
                     // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
                     // the choices are reset to continue the game
                     if (firstChoice && secondChoice) {
-                        setTimeout(resetChoices, delay);
                         if (firstChoice === secondChoice) {
+                            alert('match');
                         }
                         setTimeout(resetChoices, delay);
                     }

@@ -11,7 +11,7 @@ else{
     $_SESSION['gameid'] = uniqid();
     $_SESSION['name_id'] = $_POST['name_id'];
     $game = array(
-        "sessionID0" => $_SESSION['gameid'],
+        "sessionID0" => session_id(),
         "sessionID1" => null,
         "player1" => $_SESSION['name_id'],
         "player2" => $_SESSION['name'],

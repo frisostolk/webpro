@@ -13,7 +13,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
 ?>
 
     <div id="styled">
-        <form method="POST" id="welcome_form">
+        <form action="../webpro/scripts/join_game.php" method="POST" id="welcome_form">
             <h5>Join a Game with the Game ID your friend gave you.</h5>
             <br>
             <div class="form-group row">
@@ -28,7 +28,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
                     <input type="text" onkeyup="check_id()" class="form-control" name="ID" id="ID" placeholder="Enter your ID">
                 </div>
             </div>
-            <div id="submit" class="btn btn-primary mb-2">Join game</div>
+            <button id="submit" class="btn btn-primary mb-2">Join game</button>
         </form>
     </div>
 

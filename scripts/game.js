@@ -108,7 +108,6 @@ $(function() {
                 let request = $.post('../webpro/scripts/turn.php', { 'index': index });
 
                 request.done(function(data){
-                    alert(data);
                     if(data == 1){
                         move = true;
                     }
@@ -141,7 +140,11 @@ $(function() {
                     // the choices are reset to continue the game
                     if (firstChoice && secondChoice) {
                         if (firstChoice === secondChoice) {
-                            alert('match');
+                            let index = $(this).val();
+                            let request = $.post('../webpro/scripts/add_match.php', { 'index': firstChoice });
+                            request.done(function(data){
+                                alert(data);
+                            });
                         }
                         else{
                             let index = $(this).val();

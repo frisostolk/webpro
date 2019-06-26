@@ -1,3 +1,9 @@
+</div>
+<?php
+include __DIR__ . '/tpl/head.php';
+session_start();
+include __DIR__ . '/tpl/body_start.php';
+?>
 <script src="scripts/game.js"></script>
 <script src="scripts/timer.js"></script>
 

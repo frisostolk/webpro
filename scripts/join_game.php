@@ -6,7 +6,7 @@ $files = scandir('../data/');
 $file = $_POST['ID'].".json";
 echo $file;
 if(in_array($file, $files)){
-    $_SESSION['gameid'] = $file;
+    $_SESSION['gameid'] = $_POST['ID'];
     $_SESSION['name'] = $_POST['name'];
     $json_file = file_get_contents("../data/".$file);
     $json_file = json_decode($json_file, true);

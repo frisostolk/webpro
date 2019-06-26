@@ -106,10 +106,6 @@ $(function() {
     grid.addEventListener('click', function (event) {
         let index = $(this).val();
         let request = $.post('../webpro/scripts/turn.php', { 'index': index });
-        let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
-        request2.done(function(data2){
-            alert(data2);
-        });
         request.done(function(data){
             if(data == 1){
                 move = true;
@@ -147,6 +143,13 @@ $(function() {
                     let request = $.post('../webpro/scripts/add_match.php', { 'index': firstChoice });
                     request.done(function(data){
                         alert(data);
+                    });
+                    let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
+                    request2.done(function(data2){
+                        var js_array = JSON.parse(data2);
+                        for(i=0; i < js_array.length; i++) {
+                            $("." + js_array[i]).addClass('match');
+                        }
                     });
                 }
                 else{

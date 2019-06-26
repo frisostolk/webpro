@@ -10,7 +10,8 @@ if(in_array($file, $files)){
     $_SESSION['name'] = $_POST['name'];
     $json_file = file_get_contents("../data/".$file);
     $json_file = json_decode($json_file, true);
-    $json_file['sessionID1'] = session_id();
+    $_SESSION['player1'] = $json_file['player1'];
+    $_SESSION['player2'] = $_POST['name'];
     $filename = "../data/".$file;
     $file_open = fopen($filename, 'w');
     fwrite($file_open, json_encode($json_file));

@@ -20,7 +20,10 @@ if(in_array($file, $files)){
     header('Location: ../game.php');
 }
 else {
+    $message = "wrong answer";
+    echo "<script type='text/javascript'>alert('$message');</script>";
     header('Location: ../index.php');
+
 }
 
 

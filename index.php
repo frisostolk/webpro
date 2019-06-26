@@ -13,7 +13,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
 ?>
 
     <div id="styled">
-        <form action="../webpro/scripts/join_game.php" method="POST" id="welcome_form">
+        <form action="scripts/join_game.php" method="POST" id="welcome_form">
             <h5>Join a Game with the Game ID your friend gave you.</h5>
             <br>
             <div class="form-group row">
@@ -33,7 +33,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
     </div>
 
     <div id="styled-2">
-        <form action="../webpro/scripts/create_game.php" id="welcome_form_2" method="post">
+        <form action="scripts/create_game.php" id="welcome_form_2" method="post">
             <h5>Start a game by generating a Game ID</h5>
             <br>
             <div class="form-group row">

@@ -104,12 +104,6 @@ $(function() {
     };
     //
     grid.addEventListener('click', function (event) {
-        request2.done(function(data2){
-            var js_array = JSON.parse(data2);
-            for(i=0; i < js_array.length; i++) {
-                $("." + js_array[i]).addClass('match');
-            }
-        });
         let index = $(this).val();
         let request = $.post('../webpro/scripts/turn.php', { 'index': index });
         request.done(function(data){

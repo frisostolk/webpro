@@ -21,7 +21,7 @@ if(flag){
 
     // When player clicks on button, player is redirected to the homepage
     button.onclick = function() {
-        window.location = 'http://siegfried.webhosting.rug.nl/~s3782808/webpro/index.php'
+        window.location = '../index.php'
     };
 }
 else {

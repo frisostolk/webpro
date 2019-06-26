@@ -1,17 +1,21 @@
-</div>
-<?php
-include __DIR__ . '/tpl/head.php';
-session_start();
-include __DIR__ . '/tpl/body_start.php';
-?>
 <script src="scripts/game.js"></script>
 <script src="scripts/timer.js"></script>
 
 <div id="timer">You still have <span id="time">10:00</span> minutes/seconds!</div>
 
 <div id="scores">
-    <p>Score player 1:</p>
-    <p>Score player 2:</p>
+    <p>Score
+        <?php
+        $player_1 = $_SESSION['name_id'];
+        echo $player_1, ":";
+        ?>
+    </p>
+    <p>Score
+        <?php
+        $player_2 = $_SESSION['name'];
+        echo $player_2, ":";
+        ?>
+    </p>
 </div>
 
 <div id="game_id">
@@ -19,6 +23,7 @@ include __DIR__ . '/tpl/body_start.php';
     <?php
     $hallo = $_SESSION['gameid'];
     echo $hallo;
+
     ?>
     <br>
 </div>

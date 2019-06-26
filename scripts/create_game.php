@@ -9,14 +9,17 @@ if(in_array($game_id, $files)){
 else{
     session_start();
     $_SESSION['gameid'] = uniqid();
+    $_SESSION['name_id'] = $_POST['name_id'];
     $game = array(
-        "sessionID0" => session_id(),
+        "sessionID0" => $_SESSION['gameid'],
         "sessionID1" => null,
+        "player1" => $_SESSION['name_id'],
+        "player2" => $_SESSION['name'],
         "turn" => 0,
         "state" => null,
         "creationDateTime" => time(),
         "lastActionDateTime" => time(),
-        "match" => array(
+        "grid" => array(
         )
     );
     echo $_SESSION['gameid'];

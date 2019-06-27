@@ -30,6 +30,8 @@ else{
     fwrite($json_file, json_encode($game));
     fclose($json_file);
     header('Location: ../game.php');
+    // om opponent check te testen onderstaand uitcommenten en bovenstaand commenten
+//    header('Location: ../waitingroom.php');
 
 }
 ?>

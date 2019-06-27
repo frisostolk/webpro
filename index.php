@@ -39,7 +39,7 @@ echo"<h5>To start a game you need a Game ID. If the other person you want to pla
             <div class="form-group row">
                 <label for="name_id" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" onkeyup="check_name()" class="form-control" name="name_id" id="name_id" placeholder="Enter your Name">
+                    <input type="text" onkeyup="check_name_id()" class="form-control" name="name_id" id="name_id" placeholder="Enter your Name">
                 </div>
                 <br>
                 <br>

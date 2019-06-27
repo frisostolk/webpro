@@ -5,6 +5,8 @@ $(function() {
     let guesses = 0;
     let previousChoice = null;
     let delay = 1200;
+    var player1;
+    var player2;
     let cardsList = [
         {
             name: 'bee',
@@ -103,21 +105,28 @@ $(function() {
         });
     };
     //
-    grid.addEventListener('click', function (event) {
+    $('.card').on('click', function (event) {
+        let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
+        request2.done(function(data2){
+            var js_array = JSON.parse(data2);
+            for(i=0; i < js_array.length; i++) {
+                $("." + js_array[i]).addClass('match');
+            }
+        });
         let index = $(this).val();
         let request = $.post('../webpro/scripts/turn.php', { 'index': index });
         request.done(function(data){
-            if(data == 1){
-                move = true;
-            }
-            else{
-                move = false;
+            if(data == 0){
+                //functies maken
+                $('.card').off('click');
+            }else {
+                $('.card').on('click');
             }
         });
 
         let clicked = event.target;
         // Making sure that only the images can be clicked and not the grid in between
-        if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')|| move === false) {
+        if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
             return;
         }
         // statements to check whether it's a match or not
@@ -138,18 +147,21 @@ $(function() {
             // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
             // the choices are reset to continue the game
             if (firstChoice && secondChoice) {
+                $('.card').off('click');
                 if (firstChoice === secondChoice) {
                     let index = $(this).val();
                     let request = $.post('../webpro/scripts/add_match.php', { 'index': firstChoice });
                     request.done(function(data){
-                        alert(data);
-                    });
-                    let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
-                    request2.done(function(data2){
-                        var js_array = JSON.parse(data2);
-                        for(i=0; i < js_array.length; i++) {
-                            $("." + js_array[i]).addClass('match');
-                        }
+                        console.log(data);
+                        $('#player2-score').text(data['score2']);
+                        $('#player1-score').text(data['score1']);
+                        let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
+                        request2.done(function(data2){
+                            var js_array = JSON.parse(data2);
+                            for(i=0; i < js_array.length; i++) {
+                                $("." + js_array[i]).addClass('match');
+                            }
+                        });
                     });
                 }
                 else{

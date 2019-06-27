@@ -1,3 +1,4 @@
+
 $(function() {
     // Variable assignment for further use
     let firstChoice = '';

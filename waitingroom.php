@@ -8,7 +8,22 @@ include __DIR__ . '/tpl/body_start.php';
 <br>
 
 <div id="styled">
-    <h2>Please wait for your opponent to arrive! The game will start as soon as he/she gets online.</h2>
+    <h2>Hello
+        <?php
+        $name = $_SESSION['player1'];
+        echo $name;
+        ?>
+    </h2>
+    <h2>Your Game ID:
+        <?php
+        $hallo = $_SESSION['gameid'];
+        echo $hallo;
+        ?>
+    </h2>
+    <br>
+    <h4>Send your Game ID to your friend so he/she can join you for a game of Memory.</h4>
+    <br>
+    <h4>The game will start as soon as he/she gets online.</h4>
 </div>
 
 

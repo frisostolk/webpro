@@ -25,12 +25,12 @@ include __DIR__ . '/tpl/body_start.php';
 </div>
 
 <div id="game_id">
-    <p>Game ID:</p>
-    <?php
-    $hallo = $_SESSION['gameid'];
-    echo $hallo;
-
-    ?>
+    <p>Game ID:
+        <?php
+        $gameid = $_SESSION['gameid'];
+        echo $gameid;
+        ?>
+    </p>
     <br>
 </div>
 

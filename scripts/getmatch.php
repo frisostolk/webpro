@@ -5,5 +5,4 @@ session_start();
 $file = file_get_contents('../data/'.$_SESSION['gameid'].'.json');
 $content = json_decode($file, true);
 $min = array_values($content['match']);
-
 echo json_encode($min);

@@ -30,8 +30,8 @@ function p_print($array){
 <body>
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="http://siegfried.webhosting.rug.nl/~s3792609/webpro/game.php">Memory</a>
-        <a class="navbar-brand" href="http://siegfried.webhosting.rug.nl/~s3792609/webpro/rules.php">Game Rules</a>
+        <a class="navbar-brand" href="../webpro/game.php">Memory</a>
+        <a class="navbar-brand" href="../webpro/rules.php">Game Rules</a>
         <ul class="navbar-nav mr-auto">
             <?php $active = $navigation['active']; ?>
             <?php foreach($navigation['items'] as $title => $url){

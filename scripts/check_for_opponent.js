@@ -1,3 +1,5 @@
+// werkt sws niet, moet misschien met check of  formulier is ingevuld
+
 let opponentCheck = function opponentCheck() {
     $.getJSON("../webpro/data/.json", function (data) {
         var x;

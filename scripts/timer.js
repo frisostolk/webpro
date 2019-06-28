@@ -31,7 +31,7 @@ function startTimer(duration, display) {
 
             // When player clicks on button, player is redirected to the homepage
             button.onclick = function() {
-                window.location = '../index.php'
+                window.location = '../webpro/index.php'
             };
 
         }

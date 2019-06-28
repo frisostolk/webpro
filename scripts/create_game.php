@@ -19,7 +19,7 @@ else{
         "state" => null,
         "creationDateTime" => time(),
         "lastActionDateTime" => time(),
-        "grid" => array(
+        "match" => array(
         )
     );
     echo $_SESSION['gameid'];

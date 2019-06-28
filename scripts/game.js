@@ -6,8 +6,6 @@ $(function() {
     let guesses = 0;
     let previousChoice = null;
     let delay = 1200;
-    var player1;
-    var player2;
     let cardsList = [
         {
             name: 'bee',
@@ -91,8 +89,6 @@ $(function() {
         card.appendChild(back);
     });
 
-    // Function to check whether the two cards selected are the same (match)
-    //console.log(match_empty);
     // Function to reset the two choices so the next turn can start
     let resetChoices = function resetChoices() {
         firstChoice = '';
@@ -105,73 +101,81 @@ $(function() {
             card.classList.remove('selected');
         });
     };
-    //
-    $('.card').on('click', function (event) {
-        let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
-        request2.done(function(data2){
-            var js_array = JSON.parse(data2);
-            for(i=0; i < js_array.length; i++) {
-                $("." + js_array[i]).addClass('match');
-            }
-        });
-        let index = $(this).val();
-        let request = $.post('../webpro/scripts/turn.php', { 'index': index });
-        request.done(function(data){
-            if(data == 0){
-                //functies maken
-                $('.card').off('click');
-            }else {
-                $('.card').on('click');
-            }
-        });
 
-        let clicked = event.target;
-        // Making sure that only the images can be clicked and not the grid in between
-        if (clicked.nodeName === 'SECTION' || clicked === previousChoice || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
-            return;
-        }
-        // statements to check whether it's a match or not
-        if (guesses < 2) {
-            guesses++;
-            // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
-            if (guesses === 1) {
-                firstChoice = clicked.parentNode.dataset.name;
-                //console.log(firstChoice);
-                clicked.parentNode.classList.add('selected');
-                // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
-            } else {
-                secondChoice = clicked.parentNode.dataset.name;
-                //console.log(secondChoice);
-                clicked.parentNode.classList.add('selected');
-            }
+    function clickListener() {
+        $('.card').on('click', function (event) {
+            // request 2 checks if there are any matches already from the other player
+            let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
+            request2.done(function(data2){
+                var js_array = JSON.parse(data2);
+                for(i=0; i < js_array.length; i++) {
+                    $("." + js_array[i]).addClass('match');
+                }
+            });
+            let index = $(this).val();
 
-            // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
-            // the choices are reset to continue the game
-            if (firstChoice && secondChoice) {
-                $('.card').off('click');
-                if (firstChoice === secondChoice) {
-                    let index = $(this).val();
-                    let request = $.post('../webpro/scripts/add_match.php', { 'index': firstChoice });
-                    request.done(function(data){
-                        console.log(data);
-                        $('#player2-score').text(data['score2']);
-                        $('#player1-score').text(data['score1']);
-                        let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
-                        request2.done(function(data2){
-                            var js_array = JSON.parse(data2);
-                            for(i=0; i < js_array.length; i++) {
-                                $("." + js_array[i]).addClass('match');
-                            }
+            // request checks whos turn it is
+            let request = $.post('../webpro/scripts/turn.php', { 'index': index });
+            request.done(function(data){
+                if(data === 0){
+                    console.log();
+                    $('.card').off('click');
+                }else {
+                    clickListener();
+                }
+            });
+
+            // Making sure that only the images can be clicked and not the grid in between
+            let clicked = event.target;
+            if (clicked.nodeName === 'SECTION' || clicked === previousChoice ||
+                clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
+                return;
+            }
+            // statements to check whether it's a match or not
+            if (guesses < 2) {
+                guesses++;
+                // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
+                if (guesses === 1) {
+                    firstChoice = clicked.parentNode.dataset.name;
+                    clicked.parentNode.classList.add('selected');
+                    // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
+                } else {
+                    secondChoice = clicked.parentNode.dataset.name;
+                    clicked.parentNode.classList.add('selected');
+                }
+
+                // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
+                // the choices are reset to continue the game
+                if (firstChoice && secondChoice) {
+                    $('.card').off('click'); // can't click unless it's a match which is checked below
+                    if (firstChoice === secondChoice) {
+                        let index = $(this).val();
+                        let request = $.post('../webpro/scripts/add_match.php', { 'index': firstChoice });
+                        request.done(function(data){
+                            $('#player2-score').text(data['score2']);
+                            $('#player1-score').text(data['score1']);
+
+                            let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
+                            request2.done(function(data2){
+                                var js_array = JSON.parse(data2);
+                                for(i=0; i < js_array.length; i++) {
+                                    $("." + js_array[i]).addClass('match');
+                                }
+                            });
                         });
-                    });
+                        $('.card').on('click'); //player may continue since it was a match
+                    }
+                    else{ // player does not have a match so the turn switches
+                        let index = $(this).val();
+                        let request = $.post('../webpro/scripts/switch_turn.php', { 'index': index });
+                    }
+                    setTimeout(resetChoices, delay); // choices are reset to be able to detect new selections
                 }
-                else{
-                    let index = $(this).val();
-                    let request = $.post('../webpro/scripts/switch_turn.php', { 'index': index });
-                }
-                setTimeout(resetChoices, delay);
+                previousChoice = clicked;
             }
-            previousChoice = clicked;
-        }
-    });
+        });
+
+    }
+
+    clickListener();
 });

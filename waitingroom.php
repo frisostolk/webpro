@@ -10,7 +10,7 @@ include __DIR__ . '/tpl/body_start.php';
 <div id="styled">
     <h2>Hello
         <?php
-        $name = $_SESSION['player1'];
+        $name = $_SESSION['name_id'];
         echo $name;
         ?>
     </h2>

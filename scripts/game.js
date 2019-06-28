@@ -120,19 +120,28 @@ $(function() {
         }
     };
 
+    // function to get matches and add that class to the card also checks if all are matched
+    let addMatch = function addMatch() {
+        let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
+        request2.done(function (data2) {
+            var js_array = JSON.parse(data2);
+            for (i = 0; i < js_array.length; i++) {
+                $("." + js_array[i]).addClass('match');
+            }
+            console.log(js_array.length);
+            if (js_array.length > 11) {
+                allMatches();
+            }
+        });
+    };
+
     function clickListener() {
         $('.card').on('click', function (event) {
-            // request 2 checks if there are any matches already from the other player
-            let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
-            request2.done(function(data2){
-                var js_array = JSON.parse(data2);
-                for(i=0; i < js_array.length; i++) {
-                    $("." + js_array[i]).addClass('match');
-                }
-            });
-            let index = $(this).val();
+            // first check if there are matches already
+            addMatch()
 
             // request checks whos turn it is
+            let index = $(this).val();
             let request = $.post('../webpro/scripts/turn.php', { 'index': index });
             request.done(function(data){
                 if(data == 0){
@@ -174,17 +183,7 @@ $(function() {
                             $('#player2-score').text(data['score2']);
                             $('#player1-score').text(data['score1']);
 
-                            let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
-                            request2.done(function (data2) {
-                                var js_array = JSON.parse(data2);
-                                for (i = 0; i < js_array.length; i++) {
-                                    $("." + js_array[i]).addClass('match');
-                                }
-                                console.log(js_array.length);
-                                if (js_array.length > 11) {
-                                    allMatches();
-                                }
-                            });
+                            addMatch();
                         })
                     }
                     else{ // player does not have a match so the turn switches

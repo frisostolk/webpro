@@ -68,12 +68,7 @@ $(function() {
             num: 12,
         },
     ];
-
-    // Create the game layout, laying out the cards randomly
-    // let gameLayout = cardsList.concat(cardsList).sort(function () {
-    //     return 0.5 - Math.random();
-    // });
-    // console.log(gameLayout);
+    
 
     // Function to get grid array that is created in get_grid.php
     // it then loops through that array of numbers and assigns the names and images to them bu using the cardslist
@@ -121,36 +116,6 @@ $(function() {
 
     getGrid();
 
-    // var gameLayout = getGrid();
-    // console.log(gameLayout);
-    //
-    // // Display cards
-    // let game = document.getElementById('game');
-    // let grid = document.createElement('section');
-    // grid.setAttribute('class', 'grid');
-    // game.appendChild(grid);
-    //
-    // // For each card (item) in layout assigning a name and image
-    // gameLayout.forEach(function (item) {
-    //     let name = item.name,
-    //         img = item.img;
-    //
-    //     let card = document.createElement('div');
-    //     card.classList.add('card');
-    //     card.dataset.name = name;
-    //     card.classList.add(name);
-    //     let front = document.createElement('div');
-    //     front.classList.add('front');
-    //
-    //     let back = document.createElement('div');
-    //     back.classList.add('back');
-    //     back.style.backgroundImage = 'url(' + img + ')';
-    //
-    //     grid.appendChild(card);
-    //     card.appendChild(front);
-    //     card.appendChild(back);
-    // });
-
     // Function to reset the two choices so the next turn can start
     let resetChoices = function resetChoices() {
         firstChoice = '';
@@ -196,7 +161,7 @@ $(function() {
         });
     };
 
-
+    clickListener();
     // function that calls the entire game which happens with clicks and only for the one who's turn it is
     function clickListener() {
         $(document.body).on('click', '.card',  function (event) {
@@ -208,9 +173,10 @@ $(function() {
             let request = $.post('../webpro/scripts/turn.php', { 'index': index });
             request.done(function(data){
                 if(data == 0){
-                    console.log('not your turn');
-                    $('.card').off('click');
+                    console.log(data);
+                    $(document.body).off('click', '.card');
                 }else {
+                    console.log(data);
                     clickListener();
                 }
             });
@@ -261,5 +227,4 @@ $(function() {
 
     }
 
-    clickListener();
 });

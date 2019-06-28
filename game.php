@@ -12,14 +12,14 @@ include __DIR__ . '/tpl/body_start.php';
 <div id="scores">
     <p>Score
         <?php
-        $name = $_SESSION['name_id'];
+        $name = $_SESSION['name1'];
         echo $name;
         ?>
         : <span id="player1-score">0</span></p>
     <p>Score
         <?php
-        $name = $_SESSION['name'];
-        echo $name;
+        $name2 = $_SESSION['name2'];
+        echo $name2;
         ?>
         : <span id="player2-score">0</span></p>
 </div>

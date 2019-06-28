@@ -135,6 +135,7 @@ $(function() {
         });
     };
 
+    // function that calls the entire game which happens with clicks and only for the one who's turn it is
     function clickListener() {
         $('.card').on('click', function (event) {
             // first check if there are matches already

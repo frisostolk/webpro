@@ -9,12 +9,12 @@ if(in_array($game_id, $files)){
 else{
     session_start();
     $_SESSION['gameid'] = uniqid();
-    $_SESSION['name_id'] = $_POST['name_id'];
+    $_SESSION['name1'] = $_POST['name_id'];
     $game = array(
         "sessionID0" => session_id(),
         "sessionID1" => null,
-        "player1" => $_SESSION['name_id'],
-        "player2" => $_SESSION['name'],
+        "player1" => $_SESSION['name1'],
+        "player2" => null,
         "turn" => 0,
         "state" => null,
         "creationDateTime" => time(),

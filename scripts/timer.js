@@ -9,16 +9,8 @@ function startTimer(duration, display) {
 
         display.textContent = minutes + ":" + seconds;
 
-        // If the time is up a modal pops up with the scores etc.
+        // If the time is out a modal pops up with the scores etc.
         if (--timer < 0) {
-            $.ajax({
-                url: '../webpro/scripts/clear_players.php',
-                type: 'POST',
-                success: function (data)
-                {
-                    console.log(data);
-                }
-            });
             $("#timer").hide();
             // Get the modal
             var modal = document.getElementById("endGameModal");

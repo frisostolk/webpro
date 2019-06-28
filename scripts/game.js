@@ -138,7 +138,7 @@ $(function() {
     function clickListener() {
         $('.card').on('click', function (event) {
             // first check if there are matches already
-            addMatch()
+            addMatch();
 
             // request checks whos turn it is
             let index = $(this).val();

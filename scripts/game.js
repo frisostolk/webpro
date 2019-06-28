@@ -117,8 +117,8 @@ $(function() {
             // request checks whos turn it is
             let request = $.post('../webpro/scripts/turn.php', { 'index': index });
             request.done(function(data){
-                if(data === 0){
-                    console.log();
+                if(data == 0){
+                    console.log('not your turn');
                     $('.card').off('click');
                 }else {
                     clickListener();
@@ -163,7 +163,6 @@ $(function() {
                                 }
                             });
                         });
-                        $('.card').on('click'); //player may continue since it was a match
                     }
                     else{ // player does not have a match so the turn switches
                         let index = $(this).val();

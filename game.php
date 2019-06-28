@@ -10,8 +10,18 @@ include __DIR__ . '/tpl/body_start.php';
 <div id="timer">You still have <span id="time">10:00</span> minutes/seconds!</div>
 
 <div id="scores">
-    <p>Score:<span id="player2-score">0</span></p>
-    <p>Score:<span id="player1-score">0</span></p>
+    <p>Score
+        <?php
+        $name = $_SESSION['name_id'];
+        echo $name;
+        ?>
+        :<span id="player2-score">0</span></p>
+    <p>Score
+        <?php
+        $name = $_SESSION['name'];
+        echo $name;
+        ?>
+        :<span id="player1-score">0</span></p>
 </div>
 
 <div id="game_id">
@@ -28,8 +38,8 @@ include __DIR__ . '/tpl/body_start.php';
     <div id="endGameModal" class="modal">
         <div class="modal-content">
             <p>The game has ended!</p>
-            <p>Score Player 1: </p>
-            <p>Score Player 2: </p>
+            <p>Score Player 1:<span id="player2-score">0</span></p>
+            <p>Score Player 2:<span id="player1-score">0</span></p>
             <button class="close">Let's play another game!</button>
         </div>
     </div>

@@ -15,13 +15,13 @@ include __DIR__ . '/tpl/body_start.php';
         $name = $_SESSION['name_id'];
         echo $name;
         ?>
-        :<span id="player2-score">0</span></p>
+        : <span id="player1-score">0</span></p>
     <p>Score
         <?php
         $name = $_SESSION['name'];
         echo $name;
         ?>
-        :<span id="player1-score">0</span></p>
+        : <span id="player2-score">0</span></p>
 </div>
 
 <div id="game_id">
@@ -38,8 +38,18 @@ include __DIR__ . '/tpl/body_start.php';
     <div id="endGameModal" class="modal">
         <div class="modal-content">
             <p>The game has ended!</p>
-            <p>Score Player 1:<span id="player2-score">0</span></p>
-            <p>Score Player 2:<span id="player1-score">0</span></p>
+            <p>Score
+                <?php
+                $name = $_SESSION['name_id'];
+                echo $name;
+                ?>
+                : <span id="player1-score">0</span></p>
+            <p>Score
+                <?php
+                $name = $_SESSION['name'];
+                echo $name;
+                ?>
+                : <span id="player2-score">0</span></p>
             <button class="close">Let's play another game!</button>
         </div>
     </div>

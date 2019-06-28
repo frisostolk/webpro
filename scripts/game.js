@@ -149,20 +149,38 @@ $(function() {
                 if (firstChoice && secondChoice) {
                     $('.card').off('click'); // can't click unless it's a match which is checked below
                     if (firstChoice === secondChoice) {
+
                         let index = $(this).val();
                         let request = $.post('../webpro/scripts/add_match.php', { 'index': firstChoice });
-                        request.done(function(data){
+                        request.done(function(data) {
                             $('#player2-score').text(data['score2']);
                             $('#player1-score').text(data['score1']);
 
                             let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
-                            request2.done(function(data2){
+                            request2.done(function (data2) {
                                 var js_array = JSON.parse(data2);
-                                for(i=0; i < js_array.length; i++) {
+                                for (i = 0; i < js_array.length; i++) {
                                     $("." + js_array[i]).addClass('match');
                                 }
+                                console.log(js_array.length);
+                                if (js_array.length > 11) {
+                                    $("#timer").hide();
+                                    // Get the modal
+                                    var modal = document.getElementById("endGameModal");
+
+                                    // Get the <span> element that closes the modal
+                                    var button = document.getElementsByClassName("close")[0];
+
+                                    // Show the modal
+                                    modal.style.display = "block";
+
+                                    // When player clicks on button, player is redirected to the homepage
+                                    button.onclick = function () {
+                                        window.location = '../webpro/index.php'
+                                    }
+                                }
                             });
-                        });
+                        })
                     }
                     else{ // player does not have a match so the turn switches
                         let index = $(this).val();

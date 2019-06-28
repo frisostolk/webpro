@@ -68,7 +68,7 @@ $(function() {
             num: 12,
         },
     ];
-    
+
 
     // Function to get grid array that is created in get_grid.php
     // it then loops through that array of numbers and assigns the names and images to them bu using the cardslist
@@ -161,7 +161,23 @@ $(function() {
         });
     };
 
-    clickListener();
+
+    // Function to check what turn it is with ajax and to call clicklistener when it is the player's turn
+    let checkTurn = function checkTurn(){
+        // request checks whos turn it is
+        let index = $('.card').val();
+        let request = $.post('../webpro/scripts/turn.php', {'index' : index});
+        request.done(function(data){
+            if(data == 0){
+                $(document.body).off('click', '.card');
+                checkTurn();
+            }else {
+                console.log(data);
+                clickListener();
+            }
+        });
+    };
+
     // function that calls the entire game which happens with clicks and only for the one who's turn it is
     function clickListener() {
         $(document.body).on('click', '.card',  function (event) {
@@ -169,17 +185,7 @@ $(function() {
             addMatch();
 
             // request checks whos turn it is
-            let index = $(this).val();
-            let request = $.post('../webpro/scripts/turn.php', { 'index': index });
-            request.done(function(data){
-                if(data == 0){
-                    console.log(data);
-                    $(document.body).off('click', '.card');
-                }else {
-                    console.log(data);
-                    clickListener();
-                }
-            });
+            checkTurn();
 
             // Making sure that only the images can be clicked and not the grid in between
             let clicked = event.target;
@@ -192,11 +198,14 @@ $(function() {
                 guesses++;
                 // when its the first guess, so guesses equals 1 this registrates the name to firstchoice
                 if (guesses === 1) {
+
                     firstChoice = clicked.parentNode.dataset.name;
+                    console.log(firstChoice);
                     clicked.parentNode.classList.add('selected');
                     // if guesses is not 1, it has to be the second choice, so that name is registrated to secondChoice
                 } else {
                     secondChoice = clicked.parentNode.dataset.name;
+                    console.log(secondChoice);
                     clicked.parentNode.classList.add('selected');
                 }
 
@@ -205,26 +214,29 @@ $(function() {
                 if (firstChoice && secondChoice) {
                     $(document.body).off('click', '.card'); // can't click unless it's a match which is checked below
                     if (firstChoice === secondChoice) {
-
+                        console.log('match');
                         let index = $(this).val();
                         let request = $.post('../webpro/scripts/add_match.php', { 'index': firstChoice });
                         request.done(function(data) {
                             $('#player2-score').text(data['score2']);
                             $('#player1-score').text(data['score1']);
-
                             addMatch();
                         })
                     }
                     else{ // player does not have a match so the turn switches
+                        console.log('no match');
                         let index = $(this).val();
                         let request = $.post('../webpro/scripts/switch_turn.php', { 'index': index });
                     }
                     setTimeout(resetChoices, delay); // choices are reset to be able to detect new selections
                 }
                 previousChoice = clicked;
+
             }
         });
 
     }
+
+    checkTurn();
 
 });

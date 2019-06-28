@@ -39,13 +39,13 @@ include __DIR__ . '/tpl/body_start.php';
             <p>The game has ended!</p>
             <p>Score
                 <?php
-                $name = $_SESSION['name_id'];
+                $name = $_SESSION['name1'];
                 echo $name;
                 ?>
                 : <span id="player1-score">0</span></p>
             <p>Score
                 <?php
-                $name = $_SESSION['name'];
+                $name = $_SESSION['name2'];
                 echo $name;
                 ?>
                 : <span id="player2-score">0</span></p>

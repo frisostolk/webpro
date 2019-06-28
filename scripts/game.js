@@ -102,6 +102,24 @@ $(function() {
         });
     };
 
+    // Function to show end game modal if all matches are found
+    let allMatches = function allMatches(){
+        $("#timer").hide();
+        // Get the modal
+        var modal = document.getElementById("endGameModal");
+
+        // Get the <span> element that closes the modal
+        var button = document.getElementsByClassName("close")[0];
+
+        // Show the modal
+        modal.style.display = "block";
+
+        // When player clicks on button, player is redirected to the homepage
+        button.onclick = function () {
+            window.location = '../webpro/index.php'
+        }
+    };
+
     function clickListener() {
         $('.card').on('click', function (event) {
             // request 2 checks if there are any matches already from the other player
@@ -164,20 +182,7 @@ $(function() {
                                 }
                                 console.log(js_array.length);
                                 if (js_array.length > 11) {
-                                    $("#timer").hide();
-                                    // Get the modal
-                                    var modal = document.getElementById("endGameModal");
-
-                                    // Get the <span> element that closes the modal
-                                    var button = document.getElementsByClassName("close")[0];
-
-                                    // Show the modal
-                                    modal.style.display = "block";
-
-                                    // When player clicks on button, player is redirected to the homepage
-                                    button.onclick = function () {
-                                        window.location = '../webpro/index.php'
-                                    }
+                                    allMatches();
                                 }
                             });
                         })

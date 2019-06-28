@@ -51,5 +51,3 @@ function p_print($array){
     </nav>
 </header>
 
-<!-- Div for the background -->
-<div class="bg">

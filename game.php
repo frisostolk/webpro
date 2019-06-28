@@ -1,4 +1,3 @@
-</div>
 <?php
 include __DIR__ . '/tpl/head.php';
 session_start();

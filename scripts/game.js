@@ -10,84 +10,146 @@ $(function() {
         {
             name: 'bee',
             img: 'data/img/bee.png',
+            num: 1,
         },
         {
             name: 'cake',
             img: 'data/img/cake.png',
+            num: 2,
         },
         {
             name: 'cat',
             img: 'data/img/cat.png',
+            num: 3,
         },
         {
             name: 'dog',
             img: 'data/img/dog.png',
+            num: 4,
         },
         {
             name: 'sheep',
             img: 'data/img/sheep.png',
+            num: 5,
         },
         {
             name: 'snake',
             img: 'data/img/snake.png',
+            num: 6,
         },
         {
             name: 'penguin',
             img: 'data/img/penguin.png',
+            num: 7,
         },
         {
             name: 'pikachu',
             img: 'data/img/pikachu.png',
+            num: 8,
         },
         {
             name: 'rabbit',
             img: 'data/img/rabbit.png',
+            num: 9,
         },
         {
             name: 'rainblob',
             img: 'data/img/rainblob.png',
+            num: 10,
         },
         {
             name: 'turtle',
             img: 'data/img/turtle.png',
+            num: 11,
         },
         {
             name: 'wumpus',
             img: 'data/img/wumpus.png',
+            num: 12,
         },
     ];
 
     // Create the game layout, laying out the cards randomly
-    let gameLayout = cardsList.concat(cardsList).sort(function () {
-        return 0.5 - Math.random();
-    });
+    // let gameLayout = cardsList.concat(cardsList).sort(function () {
+    //     return 0.5 - Math.random();
+    // });
+    // console.log(gameLayout);
 
-    // Display cards
-    let game = document.getElementById('game');
-    let grid = document.createElement('section');
-    grid.setAttribute('class', 'grid');
-    game.appendChild(grid);
+    // Function to get grid array that is created in get_grid.php
+    // it then loops through that array of numbers and assigns the names and images to them bu using the cardslist
+    let getGrid = function getGrid() {
+        // Display cards
+        let game = document.getElementById('game');
+        let grid = document.createElement('section');
+        grid.setAttribute('class', 'grid');
+        game.appendChild(grid);
 
-    // For each card (item) in layout assigning a name and image
-    gameLayout.forEach(function (item) {
-        let name = item.name,
-            img = item.img;
+        // get grid array
+        let requestGrid = $.post('../webpro/scripts/get_grid.php', {'index': 'test'});
+        requestGrid.done(function (dataGrid) {
+            var js_array = JSON.parse(dataGrid);
+            var layout = [];
+            for (i = 0; i < js_array.length; i++) {
+                layout.push(js_array[i]);
+            }
+            layout.forEach(function(item){
+                cardsList.forEach(function(cardl){
+                    if (cardl.num === item){
+                        let name = cardl.name,
+                            img = cardl.img;
 
-        let card = document.createElement('div');
-        card.classList.add('card');
-        card.dataset.name = name;
-        card.classList.add(name);
-        let front = document.createElement('div');
-        front.classList.add('front');
+                        let card = document.createElement('div');
+                        card.classList.add('card');
+                        card.dataset.name = name;
+                        card.classList.add(name);
+                        let front = document.createElement('div');
+                        front.classList.add('front');
 
-        let back = document.createElement('div');
-        back.classList.add('back');
-        back.style.backgroundImage = 'url(' + img + ')';
+                        let back = document.createElement('div');
+                        back.classList.add('back');
+                        back.style.backgroundImage = 'url(' + img + ')';
 
-        grid.appendChild(card);
-        card.appendChild(front);
-        card.appendChild(back);
-    });
+                        grid.appendChild(card);
+                        card.appendChild(front);
+                        card.appendChild(back);
+                    }
+                })
+            });
+        });
+
+    };
+
+    getGrid();
+
+    // var gameLayout = getGrid();
+    // console.log(gameLayout);
+    //
+    // // Display cards
+    // let game = document.getElementById('game');
+    // let grid = document.createElement('section');
+    // grid.setAttribute('class', 'grid');
+    // game.appendChild(grid);
+    //
+    // // For each card (item) in layout assigning a name and image
+    // gameLayout.forEach(function (item) {
+    //     let name = item.name,
+    //         img = item.img;
+    //
+    //     let card = document.createElement('div');
+    //     card.classList.add('card');
+    //     card.dataset.name = name;
+    //     card.classList.add(name);
+    //     let front = document.createElement('div');
+    //     front.classList.add('front');
+    //
+    //     let back = document.createElement('div');
+    //     back.classList.add('back');
+    //     back.style.backgroundImage = 'url(' + img + ')';
+    //
+    //     grid.appendChild(card);
+    //     card.appendChild(front);
+    //     card.appendChild(back);
+    // });
 
     // Function to reset the two choices so the next turn can start
     let resetChoices = function resetChoices() {
@@ -120,7 +182,7 @@ $(function() {
         }
     };
 
-    // function to get matches and add that class to the card also checks if all are matched
+    // Function to get matches and add that class to the card also checks if all are matched
     let addMatch = function addMatch() {
         let request2 = $.post('../webpro/scripts/getmatch.php', {'index': 'test'});
         request2.done(function (data2) {
@@ -128,16 +190,16 @@ $(function() {
             for (i = 0; i < js_array.length; i++) {
                 $("." + js_array[i]).addClass('match');
             }
-            console.log(js_array.length);
             if (js_array.length > 11) {
                 allMatches();
             }
         });
     };
 
+
     // function that calls the entire game which happens with clicks and only for the one who's turn it is
     function clickListener() {
-        $('.card').on('click', function (event) {
+        $(document.body).on('click', '.card',  function (event) {
             // first check if there are matches already
             addMatch();
 
@@ -175,7 +237,7 @@ $(function() {
                 // if the names in first and secondChoice are equal it means there is a match, the match function is then activated and
                 // the choices are reset to continue the game
                 if (firstChoice && secondChoice) {
-                    $('.card').off('click'); // can't click unless it's a match which is checked below
+                    $(document.body).off('click', '.card'); // can't click unless it's a match which is checked below
                     if (firstChoice === secondChoice) {
 
                         let index = $(this).val();

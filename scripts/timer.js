@@ -23,6 +23,10 @@ function startTimer(duration, display) {
 
             // When player clicks on button, player is redirected to the homepage
             button.onclick = function() {
+                $.ajax({
+                    url:'scripts/del.php',
+                    method:'GET',
+                });
                 window.location = '../webpro/index.php'
             };
 

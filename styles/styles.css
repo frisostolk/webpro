@@ -9,6 +9,16 @@ body {
     background-size: cover;
 }
 
+.red {
+    background-color: Tomato;
+    text-decoration: underline;
+}
+
+.blue {
+    background-color: DodgerBlue;
+    text-decoration: underline;
+}
+
 .container{
     margin-top: 30px;
 }

@@ -6,16 +6,17 @@ include __DIR__ . '/tpl/body_start.php';
 <script src="scripts/game.js"></script>
 <script src="scripts/timer.js"></script>
 
-<div id="timer">You still have <span id="time">10:00</span> minutes/seconds!</div>
+<div id="timer">You still have <span id="time">10:00</span> minutes/seconds!
+<p>If your name has the color blue, it means it is your turn! Red means that it is your opponents turn.</p></div>
 
 <div id="scores">
-    <p>Score
+    <p id="p1">Score
         <?php
         $name = $_SESSION['name1'];
         echo $name;
         ?>
         : <span id="player1-score">0</span></p>
-    <p>Score
+    <p id="p2">Score
         <?php
         $name2 = $_SESSION['name2'];
         echo $name2;

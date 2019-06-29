@@ -169,13 +169,34 @@ $(function() {
         let request = $.post('../webpro/scripts/turn.php', {'index' : index});
         request.done(function(data){
             if(data == 0){
+                classRed();
                 $(document.body).off('click', '.card');
                 checkTurn();
             }else {
-                console.log(data);
+                classBlue();
                 clickListener();
+
             }
         });
+    };
+    // every 5 seconds there is a check to show the players whether it is their turn or not
+    setInterval(function(){
+        classRed()
+        classBlue()
+        clickListener()
+    }, 5000);
+
+    function classRed() {
+        $('#p1').addClass('red');
+        if ($('#p2').hasClass('blue')) {
+            $('#p2').removeClass('blue');
+        }
+    };
+    function classBlue() {
+        $('#p2').addClass('blue');
+        if ($('#p1').hasClass('red')) {
+            $('#p1').removeClass('red');
+        }
     };
 
     // function that calls the entire game which happens with clicks and only for the one who's turn it is

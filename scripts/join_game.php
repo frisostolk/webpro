@@ -24,7 +24,5 @@ else {
     $message = "wrong answer";
     echo "<script type='text/javascript'>console.log('neh');</script>";
     header('Location: ../index.php');
-
 }
-
 ?>

@@ -30,7 +30,7 @@ function p_print($array){
 <body>
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="../webpro/game.php">Memory</a>
+        <a class="navbar-brand" href="../webpro/index.php">Memory</a>
         <a class="navbar-brand" href="../webpro/rules.php">Game Rules</a>
         <ul class="navbar-nav mr-auto">
             <?php $active = $navigation['active']; ?>

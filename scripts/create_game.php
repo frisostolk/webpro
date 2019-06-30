@@ -30,5 +30,4 @@ $json_file = fopen($filename.'.json', 'w');
 fwrite($json_file, json_encode($game));
 fclose($json_file);
 header('Location: ../game.php');
-
 ?>

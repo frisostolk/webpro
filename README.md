@@ -32,7 +32,6 @@ For this project we wanted to make an efficient and clear code. To keep our file
       <li>get_grid.php</li>
       <li>getmatch.php</li>
       <li>join_game.php</li>
-      <li>remove_old_data.php</li>
       <li>switch_turn.php</li>
       <li>timer.js</li>
       <li>turn.php</li>

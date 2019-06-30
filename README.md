@@ -26,12 +26,13 @@ For this project we wanted to make an efficient and clear code. To keep our file
   <li>Scripts</li>
      <ul>
       <li>add_match.php</li>
-      <li>all_match_check.js</li>
-      <li>check_for_opponent.js</li>
-      <li>create_game.js</li>
+      <li>create_game.php</li>
+      <li>del.php</li> 
       <li>game.js</li>
+      <li>get_grid.php</li>
       <li>getmatch.php</li>
       <li>join_game.php</li>
+      <li>remove_old_data.php</li>
       <li>switch_turn.php</li>
       <li>timer.js</li>
       <li>turn.php</li>
@@ -51,7 +52,6 @@ For this project we wanted to make an efficient and clear code. To keep our file
   <li>game.php</li>
   <li>index.php</li>
   <li>rules.php</li>
-  <li>waitingroom.php</li>
 </ul>  
 
 
